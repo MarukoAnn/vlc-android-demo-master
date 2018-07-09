@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:fitsSystemWindows="true"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="59dp"
+            android:layout_toLeftOf="@+id/textView3"
+            android:layout_toStartOf="@+id/textView3"
+            android:background="@drawable/ic_logo"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/lins1"
+            android:layout_alignStart="@+id/lins1"
+            android:layout_below="@+id/imageView"
+            android:layout_marginTop="43dp"
+            android:text="用户名："
+            android:textColor="#c8ffff"
+            android:textSize="20dp"
+            tools:ignore="HardcodedText,SpUsage" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/user"
+            android:layout_alignBottom="@+id/user"
+            android:layout_toEndOf="@+id/user"
+            android:layout_toRightOf="@+id/user"
+            android:background="#17a7b0"
+            android:hint="qingshu"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/lins1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="9dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/user"
+            android:background="#c8ffff" />
+        <TextView
+            android:id="@+id/psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密  码："
+            android:textSize="20dp"
+            android:layout_below="@id/lins1"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="#c8ffff"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/psw"
+            android:layout_toEndOf="@+id/psw"
+            android:layout_toRightOf="@+id/psw"
+            android:background="#17a7b0"
+            android:hint="输入密码"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/lins2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/psw"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#c8ffff"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记住密码"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/lins2"
+            android:layout_marginLeft="30dp"
+            android:textColor="#c8ffff"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignEnd="@+id/lins2"
+            android:layout_alignRight="@+id/lins2"
+            android:text="忘记密码？"
+            android:textColor="#c8ffff"
+            tools:ignore="HardcodedText"
+            android:id="@+id/textView3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:text="登   录"
+            android:textSize="20dp"
+            android:textColor="#26888a"
+            android:background="@drawable/login_btn"
+            android:id="@+id/button"
+            tools:ignore="HardcodedText,SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:text="注         册"
+            android:textColor="#c8ffff"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+</LinearLayout>

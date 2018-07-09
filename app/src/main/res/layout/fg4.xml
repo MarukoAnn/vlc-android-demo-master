@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:background="#f9f9f9"
+    tools:ignore="Orientation">
+    <include
+        android:id="@+id/show_mainfg2_title"
+        layout="@layout/fg4_title" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/show_mainfg2_title"
+        android:gravity="center"
+        android:id="@+id/relativeLayout5">
+        <RelativeLayout
+            android:id="@+id/relativeLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+            <ImageView
+                android:id="@+id/h_back"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:background="#02406c"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/h_head"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ic_header"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/text_cailv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/h_head"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="彩铝管理员"
+                android:textColor="#ffffff"
+                android:textSize="22dp"
+                tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cailv"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="工号：12652456"
+                android:layout_marginTop="5dp"
+                android:textSize="17dp"
+                android:textColor="#ffffff"
+                tools:ignore="HardcodedText,RtlHardcoded,SpUsage"
+                android:id="@+id/textView" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relativeLayout6"
+            android:id="@+id/relativeLayout1"
+            android:background="#f9f9f9"
+            tools:ignore="ObsoleteLayoutParam">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@drawable/linear_type">
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ic_userfg2"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    android:id="@+id/pensonal"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="个人资料"
+                    android:textSize="25dp"
+                    android:background="#f9f9f9"
+                    android:duplicateParentState="true"
+                    tools:ignore="HardcodedText,InefficientWeight,RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    android:text=">"
+                    android:textSize="25dp"
+                    tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="60dp"
+                android:focusableInTouchMode="true"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:background="@drawable/linear_type"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/ic_setfg2"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    tools:ignore="ContentDescription" />
+                <TextView
+                    android:id="@+id/change_paw"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="修改密码"
+                    android:textSize="25dp"
+                    android:clickable="false"
+                    android:duplicateParentState="true"
+                    tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    android:text=">"
+                    android:textSize="25dp"
+                    tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="120dp"
+                android:background="@drawable/linear_type">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ic_persionfg2"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+                <TextView
+                    android:id="@+id/we"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="关于我们"
+                    android:textSize="25dp"
+                    tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    android:text=">"
+                    android:textSize="25dp"
+                    tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/login_out"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#F4A460"
+            android:text="退出登录"
+            android:textSize="28dp"
+            tools:ignore="HardcodedText,ObsoleteLayoutParam,SpUsage" />
+    </RelativeLayout>
+</RelativeLayout>
