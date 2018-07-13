@@ -27,7 +27,7 @@ public class UpdateHttp {
         String version = "1525609543750";
         UpdateData updateData = new UpdateData();
         updateData.setVersion(version);
-        updateData.setType("APP04");
+        updateData.setType("APP05");
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         String json = gson.toJson(updateData);

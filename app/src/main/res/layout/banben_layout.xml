@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:background="#e4e5e7"
+    tools:ignore="Orientation">
+    <include
+        android:id="@+id/show_mainfg1_title"
+        layout="@layout/banben_title" />
+
+    <ImageView
+        android:id="@+id/h_head"
+        android:layout_width="168dp"
+        android:layout_height="192dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_banben" />
+</RelativeLayout>

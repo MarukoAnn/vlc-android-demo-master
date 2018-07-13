@@ -1,9 +1,14 @@
 package com.nmbb.vlc.ui;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,6 +20,13 @@ import com.nmbb.vlc.Fragment.FourFragment;
 import com.nmbb.vlc.Fragment.SecondFragment;
 import com.nmbb.vlc.Fragment.ThirdFragment;
 import com.nmbb.vlc.R;
+import com.nmbb.vlc.Util.DataDBHepler;
+import com.nmbb.vlc.Util.SpostupdateHttp;
+import com.nmbb.vlc.modle.SidSelectData;
+
+import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     // 初始化顶部栏显示
@@ -44,7 +56,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int whirt = 0xFFFFFFFF;
     private int gray = 0xFF7597B3;
     private int dark = 0xff000000;
+
+    String path = "http://120.78.137.182/element-admin/user/sid-update";
     // 定义FragmentManager对象管理器
+    String index;
     private FragmentManager fragmentManager;
 
     @Override
@@ -53,7 +68,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
         initView(); // 初始化界面控件
-        setChioceItem(0); // 初始化页面加载时显示第一个选项卡
+        index = getIntent().getStringExtra("index");
+        if (index!=null) {
+            setChioceItem(Integer.parseInt(index));
+        }
+        else {
+            setChioceItem(0); // 初始化页面加载时显示第一个选项卡
+//            setUser();
+        }
+
+    }
+
+    public void showNoProject(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                .setMessage("身份验证已失效，请重新登录!")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this,LaunchActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+
+                    }
+                });
+        builder.setCancelable(false);
+        builder.show();
     }
 
     /**
@@ -81,7 +121,37 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         secondLayout.setOnClickListener(MainActivity.this);
         thirdLayout.setOnClickListener(MainActivity.this);
         fourthLayout.setOnClickListener(MainActivity.this);
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                try {
+                    DataDBHepler dataDBHepler = new DataDBHepler(getBaseContext());
+                    ArrayList<SidSelectData> DataList = dataDBHepler.FindSidData();
+                    final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid());
+                    String Msid = data.getSid();//获取数据库里的sid
+
+                    SpostupdateHttp spostupdateHttp = new SpostupdateHttp();
+                    String result = spostupdateHttp.posthttpresult(Msid,path);
+                    if (result.equals("13"))
+                    {
+                        showNoProject();
+                        dataDBHepler = new DataDBHepler(getBaseContext());
+                        dataDBHepler.delete("1");
+                    }
+                    else {
+                        Log.i(TAG,"用户在线");
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                Looper.loop();
+            }
+        }).start();
     }
+
 
     @Override
     public void onClick(View v) {

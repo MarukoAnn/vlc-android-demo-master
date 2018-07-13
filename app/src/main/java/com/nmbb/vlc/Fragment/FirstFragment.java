@@ -44,7 +44,7 @@ public class FirstFragment extends Fragment {
 //        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         webView.loadUrl("http://120.78.138.104:8080/ColorAlum/#/mobielogin/zhangfan" +
-                "/123456");
+                "/123456/main");
         return view;
     }
 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#edebe9"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include
+        android:id="@+id/show_set_title"
+        layout="@layout/setpsw_title" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/show_set_title"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        tools:ignore="RtlHardcoded,UselessLeaf,UselessParent"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:id="@+id/user"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="旧密码:"
+            android:textSize="20dp"
+            android:textColor="#262626"
+            tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+        <EditText
+            android:id="@+id/set_oldpsw"
+            android:layout_below="@id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_marginTop="13dp"
+        tools:ignore="RtlHardcoded,UselessLeaf,UselessParent"
+        android:id="@+id/relativeLayout3">
+
+        <TextView
+            android:id="@+id/newpswtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="新密码:"
+            android:textColor="#262626"
+            android:textSize="20dp"
+            tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+
+        <EditText
+            android:id="@+id/set_newpsw"
+            android:layout_below="@id/newpswtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_marginTop="13dp"
+        tools:ignore="RtlHardcoded,UselessLeaf,UselessParent"
+        android:id="@+id/relativeLayout2">
+
+        <TextView
+            android:id="@+id/sureNewPsw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="确认密码:"
+            android:textSize="20dp"
+            android:textColor="#262626"
+            tools:ignore="HardcodedText,SpUsage" />
+
+        <EditText
+            android:id="@+id/set_sureSetpsw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sureNewPsw"
+            android:layout_marginRight="30dp"
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/set_sureSetpsw"
+            android:text="@string/newpswDescription"
+            android:textSize="15dp"
+            tools:ignore="SpUsage" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/setpsw_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="30dp"
+        android:background="#1a1a1a"
+        android:layout_below="@+id/relativeLayout2"
+        android:text="确  定"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+</RelativeLayout>
+
