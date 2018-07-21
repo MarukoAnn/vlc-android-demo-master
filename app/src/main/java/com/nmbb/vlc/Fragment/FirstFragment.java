@@ -43,7 +43,7 @@ public class FirstFragment extends Fragment {
 ////         设置缓存模式,一共有四种模式
 //        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-        webView.loadUrl("http://120.78.138.104:8080/ColorAlum/#/mobielogin/zhangfan" +
+        webView.loadUrl("http://120.78.138.104/ColorAlum/#/mobielogin/zhangfan" +
                 "/123456/main");
         return view;
     }

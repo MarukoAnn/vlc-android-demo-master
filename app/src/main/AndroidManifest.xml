@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_logo"
+        android:icon="@drawable/ic_app"
         android:label="@string/app_name"
         android:name=".VLCApplication"
         android:theme="@style/AppTheme">
