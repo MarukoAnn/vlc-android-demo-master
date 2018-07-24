@@ -130,7 +130,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 try {
                     DataDBHepler dataDBHepler = new DataDBHepler(getBaseContext());
                     ArrayList<SidSelectData> DataList = dataDBHepler.FindSidData();
-                    final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid());
+                    final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid(),DataList.get(0).getSysids());
                     String Msid = data.getSid();//获取数据库里的sid
 
                     SpostupdateHttp spostupdateHttp = new SpostupdateHttp();

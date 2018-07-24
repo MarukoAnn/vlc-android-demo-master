@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bisque"
-    tools:context="com.example.moonshine.main.Activity.login">
+    tools:context=".ui.LoginActivity">
     <WebView
         android:id="@+id/web_item"
         android:layout_width="match_parent"

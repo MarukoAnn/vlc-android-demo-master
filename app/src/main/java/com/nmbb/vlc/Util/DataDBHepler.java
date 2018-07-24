@@ -28,7 +28,7 @@ public class DataDBHepler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table if not exists Sid_table(id INTEGER primary key autoincrement,sid varchar(256))");
+        db.execSQL("create table if not exists Sid_table(id INTEGER primary key autoincrement,sid varchar(256),sysids vachar(125))");
         db.execSQL("create table if not exists User_table(id INTEGER primary key autoincrement,user varchar(256),name verchar(125),idnum verchar(125),birthday vercahr(125),phone verchar(125))");
         db.execSQL("create table if not exists Oid_table(id INTEGER primary key autoincrement,oid varchar(256))");
         db.execSQL("create table if not exists Password_table(id INTEGER primary key autoincrement,username verchar(125),password verchar(125))");
@@ -109,7 +109,7 @@ public class DataDBHepler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select * from Sid_table", null);
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToNext();
-            SidSelectData info =new SidSelectData(cursor.getString(0),cursor.getString(1));
+            SidSelectData info =new SidSelectData(cursor.getString(0),cursor.getString(1), cursor.getString(2));
             SidList.add(info);
         }
         cursor.close();

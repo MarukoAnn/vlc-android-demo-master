@@ -12,5 +12,6 @@ android:orientation="horizontal">
     android:layout_centerInParent="true"
     android:text="个人中心"
     android:textSize="25dp"
+    android:textColor="#ffffff"
     tools:ignore="HardcodedText,SpUsage" />
 </RelativeLayout>

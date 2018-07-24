@@ -33,7 +33,7 @@ public class LaunchActivity extends Activity {
             DataDBHepler dataDBHepler = new DataDBHepler(getBaseContext());
             if (dataDBHepler.isIdorSid()) {
                 ArrayList<SidSelectData> DataList = dataDBHepler.FindSidData();
-                final SidSelectData data = new SidSelectData(DataList.get(0).getId(), DataList.get(0).getSid());
+                final SidSelectData data = new SidSelectData(DataList.get(0).getId(), DataList.get(0).getSid(),DataList.get(0).getSysids());
                 Msid = data.getSid();//获取数据库里的sid
             }
         }catch (Exception e)

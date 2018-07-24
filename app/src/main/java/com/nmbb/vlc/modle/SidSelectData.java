@@ -7,12 +7,14 @@ package com.nmbb.vlc.modle;
 public class SidSelectData {
     private String id;
     private String sid;
+    private String sysids;
 
 
-    public SidSelectData(String id, String sid) {
+    public SidSelectData(String id, String sid,String sysids) {
         super();
         this.id = id;
         this.sid = sid;
+        this.sysids = sysids;
     }
     public void setId(String id) {
         this.id = id;
@@ -28,5 +30,13 @@ public class SidSelectData {
 
     public void setSid(String sid) {
         this.sid = sid;
+    }
+
+    public String getSysids() {
+        return sysids;
+    }
+
+    public void setSysids(String sysids) {
+        this.sysids = sysids;
     }
 }

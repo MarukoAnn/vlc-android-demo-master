@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/linearlayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -31,19 +32,27 @@
             android:layout_alignLeft="@+id/textView"
             android:layout_alignStart="@+id/textView"
             android:layout_gravity="center"
-            tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded"></Spinner>
+            tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded" />
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/GridView1"
-        android:layout_marginTop="70dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnWidth="90dp"
-        android:numColumns="2"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        />
+    <RelativeLayout
+        android:layout_below="@id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <LinearLayout
+            android:id="@+id/points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            />
+    </RelativeLayout>
 </RelativeLayout>

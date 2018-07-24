@@ -216,6 +216,7 @@ public class LoginActivity extends Activity {
             String result = response.body().string();
             ReturnStatusData resultStatusData= gson.fromJson(result,ReturnStatusData.class);
             String postSid = resultStatusData.getSid();
+            String postsysids = resultStatusData.getSysids();
 
             Log.i(TAG,"SID为"+postSid);
             if (dbHepler.isIdorSid()){

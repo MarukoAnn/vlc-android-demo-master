@@ -83,7 +83,7 @@ public class Setpsw extends Activity {
          */
         final DataDBHepler dataDBHepler = new DataDBHepler(getBaseContext());
         ArrayList<SidSelectData> DataList = dataDBHepler.FindSidData();
-        final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid());
+        final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid(),DataList.get(0).getSysids());
         Log.i(TAG,"数据库的sid为："+data.getSid());
         final String Msid = data.getSid();
 
