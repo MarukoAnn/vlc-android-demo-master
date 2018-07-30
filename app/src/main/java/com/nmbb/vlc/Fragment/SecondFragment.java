@@ -43,8 +43,8 @@ public class SecondFragment extends Fragment {
 //        webSettings.setAppCacheEnabled(true);
 //        // 设置缓存模式,一共有四种模式
 //        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webView.loadUrl("http://120.78.138.104/ColorAlum/#/mobielogin/zhangfan" +
-                "/123456/sonsor");
+        webView.loadUrl("http://120.78.138.104/ColorAlum/#/mobielogin/zhangkeqi" +
+                "/123456/sensor");
         return view;
     }
 }

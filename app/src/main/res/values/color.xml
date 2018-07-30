@@ -87,4 +87,7 @@
     <!--沙褐色 -->
     <color name="azure">#F0FFFF</color>
     <!--天蓝色 -->
+    <color name="gerenzhongxing">#253847</color>
+    <color name="shipingjiankong">#26333b</color>
+
 </resources>

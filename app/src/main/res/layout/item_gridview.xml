@@ -9,12 +9,12 @@
         android:id="@+id/imgUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_chushiyuan"/>
+        android:src="@drawable/ic_chuxuan"/>
     <TextView
         android:id="@+id/proName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:text="名称"
+        android:textColor="#000000"
         tools:ignore="HardcodedText" />
 </LinearLayout>

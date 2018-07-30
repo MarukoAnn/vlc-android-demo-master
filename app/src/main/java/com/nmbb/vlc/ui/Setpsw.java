@@ -71,7 +71,7 @@ public class Setpsw extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("index", "1");
+                intent.putExtra("index", "3");
                 intent.setClass(Setpsw.this, MainActivity.class);
                 startActivity(intent);
                 finish();

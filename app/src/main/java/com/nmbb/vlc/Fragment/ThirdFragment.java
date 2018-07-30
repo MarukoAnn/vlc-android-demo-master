@@ -5,8 +5,10 @@ package com.nmbb.vlc.Fragment;
  */
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
@@ -22,39 +24,27 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.nmbb.vlc.modle.GetUrlData;
 import com.nmbb.vlc.modle.ListUrlData;
-import com.nmbb.vlc.modle.MyGridViewAdapter;
 import com.nmbb.vlc.modle.MyViewPagerAdapter;
 import com.nmbb.vlc.modle.ProductListBean;
-import com.nmbb.vlc.modle.UrlData;
 import com.nmbb.vlc.ui.MainActivity;
 import com.nmbb.vlc.ui.VlcVideoActivity;
 import com.nmbb.vlc.R;
 import com.nmbb.vlc.modle.gridAdapter;
 
-import java.io.Serializable;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 import static org.videolan.vlc.util.Preferences.TAG;
 
 
-public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeListener{
+public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeListener {
     @SuppressLint("StaticFieldLeak")
     static View view;
-    gridAdapter adapter;
     List list;
     int index;
     String path = "http://120.78.137.182/element/QueryCameraAll";
@@ -64,46 +54,46 @@ public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeLis
     private ImageView[] ivPoints;//小圆点图片集合
     private ViewPager viewPager;
     private int totalPage;//总的页数
-    private int mPageSize = 8;//每页显示的最大数量
+    private int mPageSize = 9;//每页显示的最大数量
     private List<ProductListBean> listDatas;//总的数据源
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
     private int currentPage;//当前页
+    private String[] prourl;//提取MainActivity里面传递来的链接数据
+    private String[] proName;
+    private Integer[] imgs;
+    MyGridViewAdapter myGridViewAdapter;
+    MyViewPagerAdapter myViewPagerAdapter;
+    Spinner sp;
 
-    private String[] proName = {"名称0","名称1","名称2","名称3","名称4","名称5",
-            "名称6","名称7","名称8","名称9","名称10","名称11","名称12","名称13",
-            "名称14","名称15","名称16","名称17","名称18","名称19"};
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        int PasnameLength = ((MainActivity)activity).getPasnameLength();
+        Log.i(TAG,"长度为"+PasnameLength);
+//        int PasurlLength  = ((MainActivity)activity).getPasurlLength();
+        proName = new String[PasnameLength];
+        prourl = new String[PasnameLength];
+        proName = ((MainActivity) activity).getpasname();
+        prourl = ((MainActivity)activity).getPasurl();//通过强转成宿主activity，就可以获取到传递过来的数据
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fg3, container, false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                try {
-                    HttpUrlMap(path);
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(),"网络错误",Toast.LENGTH_LONG).show();
-                }
-
-                Looper.loop();
-            }
-        }).start();
-         init();
-
         iniViews();
         //模拟数据源
         setDatas();
+
+
         inflater = LayoutInflater.from(getContext());
         //总的页数，取整（这里有三种类型：Math.ceil(3.5)=4:向上取整，只要有小数都+1  Math.floor(3.5)=3：向下取整  Math.round(3.5)=4:四舍五入）
         totalPage = (int) Math.ceil(listDatas.size() * 1.0 / mPageSize);
         viewPagerList = new ArrayList<>();
-        for(int i=0;i<totalPage;i++){
+        for (int i = 0; i < totalPage; i++) {
             //每个页面都是inflate出一个新实例
-            GridView gridView = (GridView) inflater.inflate(R.layout.item_layout,viewPager,false);
-            gridView.setAdapter(new MyGridViewAdapter(getContext(),listDatas,i,mPageSize));
+            GridView gridView = (GridView) inflater.inflate(R.layout.item_layout, viewPager, false);
+            myGridViewAdapter = new MyGridViewAdapter(getContext(), listDatas, i, mPageSize);
+            gridView.setAdapter(myGridViewAdapter);
             //添加item点击监听
             /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -117,35 +107,34 @@ public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeLis
             viewPagerList.add(gridView);
         }
         //设置ViewPager适配器
-        viewPager.setAdapter(new MyViewPagerAdapter(viewPagerList));
+        myViewPagerAdapter = new MyViewPagerAdapter(viewPagerList);
+        viewPager.setAdapter(myViewPagerAdapter);
         //小圆点指示器
         ivPoints = new ImageView[totalPage];
-        for(int i=0;i<ivPoints.length;i++){
+        for (int i = 0; i < ivPoints.length; i++) {
             ImageView imageView = new ImageView(getContext());
             //设置图片的宽高
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(10,10));
-            if(i == 0){
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(10, 10));
+            if (i == 0) {
                 imageView.setBackgroundResource(R.drawable.ic_xuanzhong);
-            }else{
+            } else {
                 imageView.setBackgroundResource(R.drawable.ic_chuxuan);
             }
             ivPoints[i] = imageView;
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             layoutParams.leftMargin = 20;//设置点点点view的左边距
             layoutParams.rightMargin = 20;//设置点点点view的右边距
-            points.addView(imageView,layoutParams);
+            points.addView(imageView, layoutParams);
         }
         //设置ViewPager滑动监听
         viewPager.addOnPageChangeListener(this);
 
-
-
 //        grid();
-        return view;
-    }
 
-    public void init() {
-        final Spinner sp;
+
+        /**
+         * 设置spinner的下拉刷新gridview
+         */
         sp = view.findViewById(R.id.TD_Spinner);
         final String[] list = {"生产现场", "厂外监控"};
         //第二步：为下拉列表定义一个适配器，这里就用到里前面定义的list。
@@ -155,39 +144,59 @@ public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeLis
         //将适配器添加到下拉列表上
         sp.setAdapter(listadapter);
         //为下拉列表控框定义点击，这个时间相应，菜单被点中
+        final LayoutInflater finalInflater = inflater;
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 index = position;
-                Log.i(TAG, "index的值为"+index);
+                viewPagerList.clear();
+                setDatas();
+                for (int i = 0; i < totalPage; i++) {
+                    //每个页面都是inflate出一个新实例
+                    GridView gridView = (GridView) finalInflater.inflate(R.layout.item_layout, viewPager, false);
+                    myGridViewAdapter = new MyGridViewAdapter(getContext(), listDatas, i, mPageSize);
+                    gridView.setAdapter(myGridViewAdapter);
+                    //每一个GridView作为一个View对象添加到ViewPager集合中
+                    viewPagerList.add(gridView);
+                }
+                //设置ViewPager适配器
+                myViewPagerAdapter = new MyViewPagerAdapter(viewPagerList);
+                viewPager.setAdapter(myViewPagerAdapter);
+                myViewPagerAdapter.notifyDataSetChanged();
                 listadapter.notifyDataSetChanged();
-//                grid();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+
+        return view;
     }
 
-
-
-
-
-
     private void iniViews() {
-        viewPager = (ViewPager)view.findViewById(R.id.viewPager);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         //初始化小圆点指示器
-        points = (ViewGroup)view.findViewById(R.id.points);
+        points = (ViewGroup) view.findViewById(R.id.points);
+
     }
 
     private void setDatas() {
+        setimage(index);
         listDatas = new ArrayList<>();
-        for(int i=0;i<proName.length;i++){
-            listDatas.add(new ProductListBean(proName[i], R.drawable.img));
-        }
+//        for (int i = 0; i < imgs.length; i++) {
+//            Log.i(TAG, "长度为:" + listurl.size());
+//            listDatas.add(new ProductListBean(listurl.get(i), imgs[i]));
+//        }
+            try {
+                for (int i = 0; i < proName.length; i++) {
+                    listDatas.add(new ProductListBean(proName[i], imgs[i]));
+                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
     }
 
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -206,6 +215,7 @@ public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeLis
 
     /**
      * 改变点点点的切换效果
+     *
      * @param selectItems
      */
     private void setImageBackground(int selectItems) {
@@ -219,182 +229,147 @@ public class ThirdFragment extends Fragment implements ViewPager.OnPageChangeLis
     }
 
 
-
-
-
-
-//    public void grid() {
-//        GridView gv = view.findViewById(R.id.GridView1);
-//        //为GridView设置适配器
-//        Log.i(TAG, "index的值为"+index);
-//        adapter=new gridAdapter(getContext(),list,index);
-//        gv.setAdapter(adapter);
-//        //注册监听事件
-//        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @SuppressLint("AuthLeak")
-//            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//                Intent intent =new Intent();
-//                if (index==0)
-//                {
-//                    if (position==0)
-//                    {
-//                        intent.putExtra("Url", (Serializable) listurl.get(position));
-//                    }
-//                    else if (position==1)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/202?transportmode-unicast");
-//                    }
-//                    else if (position==2)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/302?transportmode-unicast");
-//                    }
-//                    else if (position==3)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/402?transportmode-unicast");
-//                    }
-//                    else if (position==4)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/502?transportmode-unicast");
-//                    }
-//                    else if (position==5)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/602?transportmode-unicast");
-//                    }
-//                    else if (position==6)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/702?transportmode-unicast");
-//                    }
-//                    else if (position==7)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/802?transportmode-unicast");
-//                    }
-//
-//                }else if (index==1)
-//                {
-//                    if (position==0)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/902?transportmode-unicast");
-//                    }
-//                    else if (position==1)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1002?transportmode-unicast");
-//                    }
-//                    else if (position==2)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1102?transportmode-unicast");
-//                    }
-//                    else if (position==3)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1202?transportmode-unicast");
-//                    }
-//                    else if (position==4)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1302?transportmode-unicast");
-//                    }
-//                    else if (position==5)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1402?transportmode-unicast");
-//                    }
-//                    else if (position==6)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1502?transportmode-unicast");
-//                    }
-//                    else if (position==7)
-//                    {
-//                        intent.putExtra("Url", "rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/1602?transportmode-unicast");
-//                    }
-//
-//                }
-//                intent.setClass(getActivity(),VlcVideoActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-//    public class gridAdapter extends BaseAdapter {
-//        //上下文对象
-//        private Context context;
-//        //图片数组
-//        private Integer[] imgs;
-//        private  int index ;
-//        gridAdapter(Context context, List imgs, int index){
-//            this.context = context;
-//            this.index = index;
-//            if (index==0)
-//            {
-//                this.imgs= new Integer[]{R.drawable.image, R.drawable.image,
-//                        R.drawable.image, R.drawable.image,
-//                        R.drawable.image, R.drawable.image,R.drawable.image,R.drawable.image,};
-//            }
-//            else {
-//                this.imgs= new Integer[]{R.drawable.img, R.drawable.img,
-//                        R.drawable.img, R.drawable.img,
-//                        R.drawable.img, R.drawable.img,R.drawable.img,R.drawable.img,};
-//            }
-//        }
-//        public int getCount() {
-//            return imgs.length;
-//        }
-//
-//        public Object getItem(int item) {
-//            return item;
-//        }
-//
-//        public long getItemId(int id) {
-//            return id;
-//        }
-//
-//        //创建View方法
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            ImageView imageView;
-//            if (convertView == null) {
-//                imageView = new ImageView(context);
-//                imageView.setLayoutParams(new GridView.LayoutParams(300, 300));//设置ImageView对象布局
-//                imageView.setAdjustViewBounds(false);//设置边界对齐
-//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//设置刻度的类型
-//                imageView.setPadding(4, 4, 4, 4);//设置间距
-//            }
-//            else {
-//                imageView = (ImageView) convertView;
-//            }
-//            imageView.setImageResource(imgs[position]);//为ImageView设置图片资源
-//            return imageView;
-//        }
-//    }
-
-    public  void HttpUrlMap(String path){
-
-        OkHttpClient client = new OkHttpClient();
-        Gson gson = new Gson();
-        MediaType JSON = MediaType.parse("application/json; charset = utf-8");
-        FormBody body = new FormBody.Builder()
-                .add("gid","1")
-                .build();
-        Request request = new Request.Builder()
-                .url(path)
-                .post(body)
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-            String result = response.body().string();
-            GetUrlData getUrlData = gson.fromJson(result,GetUrlData.class);
-            Log.i(TAG,"最初为："+getUrlData.getValues());
-            UrlData urlData = gson.fromJson(getUrlData.getValues().toString(),UrlData.class);
-            Log.i(TAG,"数据为："+urlData.getData());
-            ListUrlData listUrlData = gson.fromJson(urlData.getData().toString(),ListUrlData.class);
-            List<ListUrlData> listdata = urlData.getData();
-            for(int i=0;i<listurl.size();i++)
-            {
-                    String valus =listdata.get(i).getValues();
-                    String status = listdata.get(i).getStatus();
-                    String outer_url =listdata.get(i).getOuter_url();
-                    ListUrlData p = new ListUrlData(valus,outer_url,status);
-                    listurl.add(p);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
+    private void setimage(int indexq) {
+        if (indexq==0) {
+           imgs = new Integer[]{R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4,
+                    R.drawable.image5, R.drawable.image6, R.drawable.image7, R.drawable.image2, R.drawable.image1,
+                    R.drawable.image3, R.drawable.image5, R.drawable.image6, R.drawable.image4, R.drawable.image7,
+                    R.drawable.image5,R.drawable.image3,R.drawable.image1,R.drawable.image6,R.drawable.image4,
+                    R.drawable.image4,R.drawable.image5,R.drawable.image3,R.drawable.image1};
+        } else {
+           imgs = new Integer[]{R.drawable.image7, R.drawable.image6, R.drawable.image4, R.drawable.image5,
+                   R.drawable.image3, R.drawable.image2, R.drawable.image1, R.drawable.image5, R.drawable.image4,
+                   R.drawable.image6, R.drawable.image1, R.drawable.image3, R.drawable.image2, R.drawable.image1,
+                   R.drawable.image5,R.drawable.image6,R.drawable.image,R.drawable.image3,R.drawable.image4,
+                   R.drawable.image2,R.drawable.image6,R.drawable.image4,R.drawable.image3};
+            Log.i(TAG,"图片二"+imgs);
         }
     }
 
+
+    public class MyGridViewAdapter extends BaseAdapter {
+
+        private List<ProductListBean> listData;
+        private LayoutInflater inflater;
+        private Context context;
+        private int mIndex;//页数下标，表示第几页，从0开始
+        private int mPagerSize;//每页显示的最大数量
+
+
+        public MyGridViewAdapter(Context context, List<ProductListBean> listData, int mIndex, int mPagerSize) {
+            this.context = context;
+            this.listData = listData;
+            this.mIndex = mIndex;
+            this.mPagerSize = mPagerSize;
+            inflater = LayoutInflater.from(context);
+        }
+
+        /**
+         * 先判断数据集的大小是否足够显示满本页？listData.size() > (mIndex + 1)*mPagerSize
+         * 如果满足，则此页就显示最大数量mPagerSize的个数
+         * 如果不够显示每页的最大数量，那么剩下几个就显示几个 (listData.size() - mIndex*mPagerSize)
+         */
+        @Override
+        public int getCount() {
+            return listData.size() > (mIndex + 1) * mPagerSize ? mPagerSize : (listData.size() - mIndex * mPagerSize);
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return listData.get(position + mIndex * mPagerSize);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position + mIndex * mPagerSize;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.item_gridview, parent, false);
+                holder = new ViewHolder();
+                holder.proName = (TextView) convertView.findViewById(R.id.proName);
+                holder.imgUrl = (ImageView) convertView.findViewById(R.id.imgUrl);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            //重新确定position（因为拿到的是总的数据源，数据源是分页加载到每页的GridView上的，为了确保能正确的点对不同页上的item）
+            final int pos = position + mIndex * mPagerSize;//假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
+            final ProductListBean bean = listData.get(pos);
+//            final ListUrlData data = bean.getListurl();
+            holder.proName.setText(bean.getProName());
+            holder.imgUrl.setImageResource(bean.getImgUrl());
+
+            //添加item监听
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("AuthLeak")
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("Url",prourl[position]);
+                    intent.setClass(getActivity(), VlcVideoActivity.class);
+                    startActivity(intent);
+                    Log.i(TAG,"链接为："+prourl[position]);
+                    Toast.makeText(context, "你点击了 " + bean.getProName(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            return convertView;
+        }
+
+        class ViewHolder {
+            private TextView proName;
+            private ImageView imgUrl;
+        }
+    }
+
+    /**
+     * @param 同步请求拿视屏数据放到gridview里面
+     *
+     */
+//    public String posthttpresult(String path) {
+//
+//        String result = null;
+//        OkHttpClient client = new OkHttpClient();
+//        Gson gson = new Gson();
+//        String resultStatus=null;
+//        MediaType JSON = MediaType.parse("application/json; charset = utf-8");
+//        FormBody body = new FormBody.Builder()
+//                .add("gid", "1")
+//                .build();
+//        Request request = new Request.Builder()
+//                .url(path)
+//                .post(body)
+//                .build();
+//        try {
+//            Response response = client.newCall(request).execute();
+//            result = response.body().string();
+//            GetUrlData getUrlData = gson.fromJson(result, GetUrlData.class);
+//            Log.i(TAG, "最初为：" + getUrlData.getValues());
+//            UrlData urlData = getUrlData.getValues();
+//            resultStatus = getUrlData.getStatus();
+//            Log.i(TAG, "数据为：" + urlData.getDatas());
+//            try {
+//                List<ListUrlData> listdata = urlData.getDatas();
+//                for (int i = 0; i < listdata.size(); i++) {
+//                    String valus = listdata.get(i).getValue();
+//                    String status = listdata.get(i).getStatus();
+//                    String outer_url = listdata.get(i).getOuter_url();
+//                    ListUrlData p = new ListUrlData(valus, outer_url, status);
+//                    listurl.add(p);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                Toast.makeText(getContext(), "网络无连接", Toast.LENGTH_SHORT).show();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(getContext(), "网络无连接", Toast.LENGTH_SHORT).show();
+//
+//        }
+//        return resultStatus;
+//
+//    }
 }

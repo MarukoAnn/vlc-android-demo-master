@@ -1,24 +1,27 @@
 package com.nmbb.vlc.modle;
 
+import android.content.Intent;
+
 import java.util.List;
 
 public class UrlData {
-    private String number;
-    private List<ListUrlData> data;
+    private int number;
+    private List<ListUrlData> datas;
 
-    public List<ListUrlData> getData() {
-        return data;
+    public List<ListUrlData> getDatas() {
+        return datas;
     }
 
-    public String getNumber() {
+
+    public void setDatas(List<ListUrlData> datas) {
+        this.datas = datas;
+    }
+
+    public int getNumber() {
         return number;
     }
 
-    public void setData(List<ListUrlData> data) {
-        this.data = data;
-    }
-
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 }

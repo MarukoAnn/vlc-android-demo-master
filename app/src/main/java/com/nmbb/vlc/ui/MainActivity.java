@@ -1,7 +1,9 @@
 package com.nmbb.vlc.ui;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
@@ -9,12 +11,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nmbb.vlc.Fragment.FirstFragment;
 import com.nmbb.vlc.Fragment.FourFragment;
 import com.nmbb.vlc.Fragment.SecondFragment;
@@ -22,9 +27,21 @@ import com.nmbb.vlc.Fragment.ThirdFragment;
 import com.nmbb.vlc.R;
 import com.nmbb.vlc.Util.DataDBHepler;
 import com.nmbb.vlc.Util.SpostupdateHttp;
+import com.nmbb.vlc.modle.GetUrlData;
+import com.nmbb.vlc.modle.ListUrlData;
 import com.nmbb.vlc.modle.SidSelectData;
+import com.nmbb.vlc.modle.UrlData;
+
+import org.videolan.vlc.util.Preferences;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.content.ContentValues.TAG;
 
@@ -58,8 +75,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int dark = 0xff000000;
 
     String path = "http://120.78.137.182/element-admin/user/sid-update";
+    String url = "http://120.78.137.182/element/QueryCameraAll";
     // 定义FragmentManager对象管理器
     String index;
+    List<ListUrlData> listurl = new ArrayList<>();
+    String[] pasname;
+    String[] pasurl;
     private FragmentManager fragmentManager;
 
     @Override
@@ -76,6 +97,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             setChioceItem(0); // 初始化页面加载时显示第一个选项卡
 //            setUser();
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                try {
+                    if (posthttpresult(url).equals("10"))
+                    {
+                        setPasname();
+                    }else {
+                       Log.i(TAG,"获取错误");
+                    }
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                Looper.loop();
+            }
+        }).start();
 
     }
 
@@ -100,10 +141,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * 初始化页面
      */
     private void initView() {
-// 初始化页面标题栏
-       titleLeftImv = (ImageView) findViewById(R.id.title_imv);
-        titleTv = (TextView) findViewById(R.id.title_text_tv);
-        titleTv.setText("首 页");
 // 初始化底部导航栏的控件
         firstImage = (ImageView) findViewById(R.id.first_image);
         secondImage = (ImageView) findViewById(R.id.second_image);
@@ -184,9 +221,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         hideFragments(fragmentTransaction);
         switch (index) {
             case 0:
-// firstImage.setImageResource(R.drawable.XXXX); 需要的话自行修改
-                firstText.setTextColor(dark);
-                firstLayout.setBackgroundColor(gray);
+                firstImage.setImageResource(R.drawable.ic_yunxing1);
+                firstText.setTextColor(whirt);
+                firstLayout.setBackgroundColor(Color.parseColor("#0a1720"));
 // 如果fg1为空，则创建一个并添加到界面上
                 if (fg1 == null) {
                     fg1 = new FirstFragment();
@@ -197,9 +234,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
                 break;
             case 1:
-// secondImage.setImageResource(R.drawable.XXXX);
-                secondText.setTextColor(dark);
-                secondLayout.setBackgroundColor(gray);
+                secondImage.setImageResource(R.drawable.ic_jiankong1);
+                secondText.setTextColor(whirt);
+                secondLayout.setBackgroundColor(Color.parseColor("#0a1720"));
                 if (fg2 == null) {
                     fg2 = new SecondFragment();
                     fragmentTransaction.add(R.id.content, fg2);
@@ -208,9 +245,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
                 break;
             case 2:
-// thirdImage.setImageResource(R.drawable.XXXX);
-                thirdText.setTextColor(dark);
-                thirdLayout.setBackgroundColor(gray);
+                thirdImage.setImageResource(R.drawable.ic_shiping1);
+                thirdText.setTextColor(whirt);
+                thirdLayout.setBackgroundColor(Color.parseColor("#0a1720"));
                 if (fg3 == null) {
                     fg3 = new ThirdFragment();
                     fragmentTransaction.add(R.id.content, fg3);
@@ -219,9 +256,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }
                 break;
             case 3:
-// fourthImage.setImageResource(R.drawable.XXXX);
-                fourthText.setTextColor(dark);
-                fourthLayout.setBackgroundColor(gray);
+                fourthImage.setImageResource(R.drawable.ic_we1);
+                fourthText.setTextColor(whirt);
+                fourthLayout.setBackgroundColor(Color.parseColor("#0a1720"));
                 if (fg4 == null) {
                     fg4 = new FourFragment();
                     fragmentTransaction.add(R.id.content, fg4);
@@ -237,17 +274,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * 当选中其中一个选项卡时，其他选项卡重置为默认
      */
     private void clearChioce() {
-// firstImage.setImageResource(R.drawable.XXX);
-        firstText.setTextColor(gray);
+        firstImage.setImageResource(R.drawable.ic_yunxing);
+        firstText.setTextColor(Color.parseColor("#0a1720"));
         firstLayout.setBackgroundColor(whirt);
-// secondImage.setImageResource(R.drawable.XXX);
-        secondText.setTextColor(gray);
+        secondImage.setImageResource(R.drawable.ic_jiankong);
+        secondText.setTextColor(Color.parseColor("#0a1720"));
         secondLayout.setBackgroundColor(whirt);
-// thirdImage.setImageResource(R.drawable.XXX);
-        thirdText.setTextColor(gray);
+        thirdImage.setImageResource(R.drawable.ic_shiping);
+        thirdText.setTextColor(Color.parseColor("#0a1720"));
         thirdLayout.setBackgroundColor(whirt);
-// fourthImage.setImageResource(R.drawable.XXX);
-        fourthText.setTextColor(gray);
+        fourthImage.setImageResource(R.drawable.ic_we);
+        fourthText.setTextColor(Color.parseColor("#0a1720"));
         fourthLayout.setBackgroundColor(whirt);
     }
 
@@ -269,5 +306,91 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (fg4 != null) {
             fragmentTransaction.hide(fg4);
         }
+    }
+    /**
+     * @param keyCode
+     * @param event   监听手机back键 点击返回界面
+     * @return
+     */
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //启动一个意图,回到桌面
+            Intent backHome = new Intent(Intent.ACTION_MAIN);
+            backHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            backHome.addCategory(Intent.CATEGORY_HOME);
+            startActivity(backHome);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public String posthttpresult(String path) {
+
+        String result = null;
+        OkHttpClient client = new OkHttpClient();
+        Gson gson = new Gson();
+        String resultStatus=null;
+        MediaType JSON = MediaType.parse("application/json; charset = utf-8");
+        FormBody body = new FormBody.Builder()
+                .add("gid", "1")
+                .build();
+        Request request = new Request.Builder()
+                .url(path)
+                .post(body)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            result = response.body().string();
+            GetUrlData getUrlData = gson.fromJson(result, GetUrlData.class);
+            Log.i(Preferences.TAG, "最初为：" + getUrlData.getValues());
+            UrlData urlData = getUrlData.getValues();
+            resultStatus = getUrlData.getStatus();
+            Log.i(Preferences.TAG, "数据为：" + urlData.getDatas());
+            try {
+                List<ListUrlData> listdata = urlData.getDatas();
+                for (int i = 0; i < listdata.size(); i++) {
+                    String valus = listdata.get(i).getValue();
+                    String status = listdata.get(i).getStatus();
+                    String outer_url = listdata.get(i).getOuter_url();
+                    ListUrlData p = new ListUrlData(valus, outer_url, status);
+                    listurl.add(p);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "网络无连接", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "网络无连接", Toast.LENGTH_SHORT).show();
+
+        }
+        Log.i(TAG,"返回值为："+resultStatus);
+        return resultStatus;
+
+    }
+
+   public void  setPasname(){
+        pasname = new String[listurl.size()];
+        pasurl = new String[listurl.size()];
+        for (int i = 0 ;i<listurl.size();i++)
+        {
+            ListUrlData listUrlData = listurl.get(i);
+            pasname[i]=listUrlData.getValue();
+            pasurl[i]=listUrlData.getOuter_url();
+            Log.i(TAG,"数据:"+pasname[i]);
+            Log.i(TAG,"链接为:"+pasurl[i]);
+        }
+   }
+
+   public String[] getpasname(){
+        return pasname;
+   }
+   public int getPasnameLength(){
+        return listurl.size();
+   }
+
+    public String[] getPasurl() {
+        return pasurl;
     }
 }

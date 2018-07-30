@@ -6,8 +6,8 @@
     android:background="#4f4f4f">
     <ImageView
         android:id="@+id/returnview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
         android:background="@drawable/ic_setpswreturn"
         tools:ignore="ContentDescription" />

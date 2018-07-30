@@ -149,9 +149,9 @@ public class LoginActivity extends Activity {
     }
     //控件初始化
     public void ViewLayout() {
-        login_btn = findViewById(R.id.login_button);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
+        login_btn = findViewById(R.id.login_btn);
+        username = findViewById(R.id.login_user);
+        password = findViewById(R.id.login_pass);
     }
 
     public void init() {

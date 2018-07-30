@@ -17,27 +17,29 @@
         android:label="@string/app_name"
         android:name=".VLCApplication"
         android:theme="@style/AppTheme">
-        <!--<activity-->
-            <!--android:name=".ui.LaunchActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".ui.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.VlcVideoActivity"
             android:screenOrientation="landscape"
             android:theme="@style/VideoTheme">
         </activity>
         <activity android:name=".ui.LoginActivity">
         </activity>
-        <activity android:name=".ui.MainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".ui.MainActivity" android:theme="@style/Theme.AppCompat"/>
+        <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <activity android:name=".ui.PersonalActivity"/>
+        <activity android:name=".ui.Setpsw"/>
+        <activity android:name=".ui.banbenActivity"/>
     </application>
 
 </manifest>

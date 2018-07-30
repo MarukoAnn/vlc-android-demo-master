@@ -5,15 +5,17 @@
 package com.nmbb.vlc.modle;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ProductListBean implements Serializable {
     private String proName;
     private int imgUrl;
 
     public ProductListBean(String proName, int imgUrl) {
-        this.proName = proName;
+        this.proName= proName;
         this.imgUrl = imgUrl;
     }
+
 
     public String getProName() {
         return proName;

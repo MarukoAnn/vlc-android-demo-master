@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical">
-    <!--1. 顶部标题栏-->
-    <include
-        android:id="@+id/show_main_title"
-        layout="@layout/activity_title" />
 
     <!--2. 存放四个Fragment-->
     <FrameLayout
@@ -38,9 +34,10 @@
                 android:orientation="vertical"
                 tools:ignore="UseCompoundDrawables,UselessParent">
                 <ImageView
+                    android:layout_marginTop="2dp"
                     android:id="@+id/first_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_compass"
                     tools:ignore="ContentDescription" />
@@ -49,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:text="运行情况"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
@@ -69,8 +66,9 @@
 
                 <ImageView
                     android:id="@+id/second_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_agenda"
                     tools:ignore="ContentDescription" />
@@ -79,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:text="生产监视"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
@@ -98,8 +96,9 @@
                 tools:ignore="UseCompoundDrawables,UselessParent">
                 <ImageView
                     android:id="@+id/third_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_mapmode"
                     tools:ignore="ContentDescription" />
@@ -108,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:text="视屏监控"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
@@ -127,8 +126,9 @@
                 tools:ignore="UseCompoundDrawables,UselessParent">
                 <ImageView
                     android:id="@+id/fourth_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_myplaces"
                     tools:ignore="ContentDescription" />
@@ -137,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:text="我的"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />

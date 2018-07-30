@@ -15,12 +15,12 @@ public class banbenActivity extends Activity {
     public void onCreate(Bundle savdInstanceStated) {
         super.onCreate(savdInstanceStated);
         setContentView(R.layout.banben_layout);
-        ImageView imageView = findViewById(R.id.return_view);
+        ImageView imageView = findViewById(R.id.returnview2);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("index","1");
+                intent.putExtra("index","3");
                 intent.setClass(banbenActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
