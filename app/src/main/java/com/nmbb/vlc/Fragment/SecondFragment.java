@@ -19,7 +19,7 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fg2, container, false);
-        final WebView webView = view.findViewById(R.id.web_item1);
+        final WebView webView = (WebView) view.findViewById(R.id.web_item1);
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

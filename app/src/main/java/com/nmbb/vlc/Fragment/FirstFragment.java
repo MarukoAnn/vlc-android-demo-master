@@ -24,7 +24,7 @@ public class FirstFragment extends Fragment {
         view = inflater.inflate(R.layout.fg1, container, false);
 
 
-        final WebView webView = view.findViewById(R.id.web_item);
+        final WebView webView = (WebView) view.findViewById(R.id.web_item);
 //        webView.setWebViewClient(new WebViewClient(){
 //            @Override
 //            public boolean shouldOverrideUrlLoading(WebView view, String url) {

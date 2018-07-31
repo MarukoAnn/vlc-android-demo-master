@@ -41,24 +41,39 @@
             android:layout_gravity="center"
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded" />
     </LinearLayout>
-    <RelativeLayout
-        android:layout_below="@id/linearlayout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <!--<RelativeLayout-->
+        <!--android:layout_below="@id/linearlayout1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
 
-        android:background="@color/shipingjiankong">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:id="@+id/points"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            />
-    </RelativeLayout>
+        <!--android:background="@color/shipingjiankong">-->
+        <!--<android.support.v4.view.ViewPager-->
+            <!--android:id="@+id/viewPager"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/points"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal"-->
+            <!--/>-->
+    <!--</RelativeLayout>-->
+    <GridView
+        android:id="@+id/gridView1"
+        android:layout_below="@id/linearlayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:numColumns="3"
+        android:columnWidth="20dp"
+        android:background="#ffffff"
+        android:horizontalSpacing="10dp"
+        tools:ignore="RtlSymmetry">
+
+    </GridView>
 </RelativeLayout>
