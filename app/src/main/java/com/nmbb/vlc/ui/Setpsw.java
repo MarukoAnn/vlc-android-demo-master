@@ -2,6 +2,7 @@ package com.nmbb.vlc.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.github.zackratos.ultimatebar.UltimateBar;
 import com.nmbb.vlc.R;
 import com.nmbb.vlc.Util.DataDBHepler;
 import com.nmbb.vlc.Util.SelecthttpUserUtil;
@@ -64,7 +66,11 @@ public class Setpsw extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setpaw);
         intView();
-
+        UltimateBar.newColorBuilder()
+                .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                .statusDepth(50)                // 状态栏颜色深度
+                .build(this)
+                .apply();
 
         ImageView imageView = findViewById(R.id.returnview);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +113,7 @@ public class Setpsw extends Activity {
                                     final String RStus = postSidhttp(Msid,user.getText().toString(),newPsd.getText().toString());
                                     if (RStus.equals("10"))
                                     {
-                                        String url = "http://120.78.137.182/element-admin/user/logout";
+                                        String url = "http://123.249.28.108:8081/element-admin/user/logout";
                                         final SelecthttpUserUtil selecthttpUserUtil = new SelecthttpUserUtil();
                                         selecthttpUserUtil.postSidhttp(Msid,url);
                                     Toast.makeText(getApplicationContext(),"修改成功",Toast.LENGTH_SHORT).show();
@@ -144,7 +150,7 @@ public class Setpsw extends Activity {
         String  SidStatus = null;
         String  status = "20";
         newPsword = newpsword;
-        String url = "http://120.78.137.182/element-admin/user/query-self";
+        String url = "http://123.249.28.108:8081/element-admin/user/query-self";
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         ResultData mdata = new ResultData();
@@ -202,7 +208,7 @@ public class Setpsw extends Activity {
 
     public String ChangePsw() {
         String mStatus =null;
-        String path = "http://120.78.137.182/element-admin/user/update-self";
+        String path = "http://123.249.28.108:8081/element-admin/user/update-self";
 
         ReturnPostData data = new ReturnPostData(id,idCode,userCode,realName,userName,homeAddress,homeTelephone,organizationId,newPsword,phone,email,birthday,gender,idt,udt);
 

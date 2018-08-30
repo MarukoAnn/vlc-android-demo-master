@@ -3,6 +3,7 @@ package com.nmbb.vlc.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.zackratos.ultimatebar.UltimateBar;
 import com.google.gson.Gson;
 import com.nmbb.vlc.R;
 import com.nmbb.vlc.Util.DataDBHepler;
@@ -49,6 +51,11 @@ public class PersonalActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
+        UltimateBar.newColorBuilder()
+                .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                .statusDepth(50)                // 状态栏颜色深度
+                .build(this)
+                .apply();
         init();
         ImageView imageView = findViewById(R.id.return_view);
         new Thread(new Runnable() {
@@ -95,7 +102,7 @@ public class PersonalActivity extends Activity {
 
                     name.setText(returnPostData.getRealName());
                     p_phone.setText(returnPostData.getPhone());
-                    idnum.setText(returnPostData.getHomeTelephone());
+                    idnum.setText(returnPostData.getIdCode());
 
                 }catch (Exception e){
                     Log.e(TAG, "postlisthttp: ",e );
@@ -106,7 +113,7 @@ public class PersonalActivity extends Activity {
                 //耗时的操作
                 String  SidStatus = null;
                 String result = null;
-                String url = "http://120.78.137.182/element-admin/user/query-self";
+                String url = "http://123.249.28.108:8081/element-admin/user/query-self";
                 OkHttpClient client = new OkHttpClient();
                 Gson gson = new Gson();
 

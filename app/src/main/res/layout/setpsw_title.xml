@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="#4f4f4f">
+    android:background="#253847">
     <ImageView
         android:id="@+id/returnview"
         android:layout_width="35dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:background="@drawable/ic_setpswreturn"
+        android:background="@drawable/ic_fanhui"
         tools:ignore="ContentDescription" />
     <TextView
         android:layout_width="match_parent"

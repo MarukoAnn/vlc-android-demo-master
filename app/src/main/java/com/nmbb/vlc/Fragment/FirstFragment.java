@@ -17,7 +17,6 @@ import com.nmbb.vlc.R;
 public class FirstFragment extends Fragment {
     private View view;
     private ProgressDialog dialog;
-    WebView webView;
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

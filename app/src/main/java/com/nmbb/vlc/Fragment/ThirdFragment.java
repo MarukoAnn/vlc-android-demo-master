@@ -121,16 +121,16 @@ public class ThirdFragment extends Fragment {
     private void setimage(int indexq) {
         if (indexq == 0) {
             imgs = new Integer[]{R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4,
-                    R.drawable.image5, R.drawable.image6, R.drawable.image7, R.drawable.image, R.drawable.image,
-                    R.drawable.image7, R.drawable.image2, R.drawable.image, R.drawable.image, R.drawable.image,
-                    R.drawable.image3, R.drawable.image1, R.drawable.image4, R.drawable.image5, R.drawable.image,
-                    R.drawable.image, R.drawable.image1, R.drawable.image, R.drawable.image};
+                    R.drawable.image5, R.drawable.image6, R.drawable.image7, R.drawable.image, R.drawable.image5,
+                    R.drawable.image7, R.drawable.image2, R.drawable.image3, R.drawable.image4, R.drawable.image6,
+                    R.drawable.image3, R.drawable.image1, R.drawable.image4, R.drawable.image5, R.drawable.image3,
+                    R.drawable.image7, R.drawable.image1, R.drawable.image4, R.drawable.image6};
         } else {
             imgs = new Integer[]{R.drawable.image7, R.drawable.image6, R.drawable.image4, R.drawable.image5,
                     R.drawable.image3, R.drawable.image2, R.drawable.image1, R.drawable.image5, R.drawable.image4,
                     R.drawable.image6, R.drawable.image1, R.drawable.image3, R.drawable.image2, R.drawable.image1,
-                    R.drawable.image5, R.drawable.image6, R.drawable.image, R.drawable.image, R.drawable.image,
-                    R.drawable.image, R.drawable.image5, R.drawable.image4, R.drawable.image3};
+                    R.drawable.image5, R.drawable.image6, R.drawable.image3, R.drawable.image5, R.drawable.image6,
+                    R.drawable.image2, R.drawable.image5, R.drawable.image4, R.drawable.image3};
             Log.i(TAG, "图片二" + imgs);
         }
     }

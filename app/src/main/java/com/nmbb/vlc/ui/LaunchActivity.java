@@ -2,10 +2,12 @@ package com.nmbb.vlc.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.github.zackratos.ultimatebar.UltimateBar;
 import com.nmbb.vlc.R;
 import com.nmbb.vlc.Util.DataDBHepler;
 import com.nmbb.vlc.Util.UpdateHttp;
@@ -18,14 +20,18 @@ import java.util.ArrayList;
  */
 
 public class LaunchActivity extends Activity {
-    String Loginurl = "http://120.78.137.182/element-admin/user/logout";
+    String Loginurl = "http://123.249.28.108:8081/element-admin/user/logout";
     String Msid;
     String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launch_activity);
-
+        UltimateBar.newColorBuilder()
+                .statusColor(Color.parseColor("#13181c"))       // 状态栏颜色
+                .statusDepth(50)                // 状态栏颜色深度
+                .build(this)
+                .apply();
         /**
          * 查询数据库里的sid
          */

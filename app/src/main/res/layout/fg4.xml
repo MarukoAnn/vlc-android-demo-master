@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="个人资料"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:textColor="#000000"
                     android:background="#f9f9f9"
                     android:duplicateParentState="true"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:text="修改密码"
                     android:textColor="#000000"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     android:clickable="false"
                     android:duplicateParentState="true"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
@@ -174,7 +174,7 @@
                     android:layout_weight="1"
                     android:textColor="#000000"
                     android:text="关于我们"
-                    android:textSize="25dp"
+                    android:textSize="22dp"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 
                 <TextView

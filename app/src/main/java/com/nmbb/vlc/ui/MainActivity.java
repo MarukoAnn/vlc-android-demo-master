@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.zackratos.ultimatebar.UltimateBar;
 import com.google.gson.Gson;
 import com.nmbb.vlc.Fragment.FirstFragment;
 import com.nmbb.vlc.Fragment.FourFragment;
@@ -74,8 +75,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int gray = 0xFF7597B3;
     private int dark = 0xff000000;
 
-    String path = "http://120.78.137.182/element-admin/user/sid-update";
-    String url = "http://120.78.137.182/element/QueryCameraAll";
+    String path = "http://123.249.28.108:8081/element-admin/user/sid-update";
+    String url = "http://123.249.28.108:8081/element/QueryCameraAll";
     // 定义FragmentManager对象管理器
     String index;
     List<ListUrlData> listurl = new ArrayList<>();
@@ -224,6 +225,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 firstImage.setImageResource(R.drawable.ic_yunxing1);
                 firstText.setTextColor(whirt);
                 firstLayout.setBackgroundColor(Color.parseColor("#0a1720"));
+                UltimateBar.newColorBuilder()
+                        .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                        .statusDepth(50)                // 状态栏颜色深度
+                        .build(this)
+                        .apply();
 // 如果fg1为空，则创建一个并添加到界面上
                 if (fg1 == null) {
                     fg1 = new FirstFragment();
@@ -237,6 +243,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 secondImage.setImageResource(R.drawable.ic_jiankong1);
                 secondText.setTextColor(whirt);
                 secondLayout.setBackgroundColor(Color.parseColor("#0a1720"));
+                UltimateBar.newColorBuilder()
+                        .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                        .statusDepth(50)                // 状态栏颜色深度
+                        .build(this)
+                        .apply();
                 if (fg2 == null) {
                     fg2 = new SecondFragment();
                     fragmentTransaction.add(R.id.content, fg2);
@@ -248,6 +259,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 thirdImage.setImageResource(R.drawable.ic_shiping1);
                 thirdText.setTextColor(whirt);
                 thirdLayout.setBackgroundColor(Color.parseColor("#0a1720"));
+                UltimateBar.newColorBuilder()
+                        .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                        .statusDepth(50)                // 状态栏颜色深度
+                        .build(this)
+                        .apply();
                 if (fg3 == null) {
                     fg3 = new ThirdFragment();
                     fragmentTransaction.add(R.id.content, fg3);
@@ -259,6 +275,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 fourthImage.setImageResource(R.drawable.ic_we1);
                 fourthText.setTextColor(whirt);
                 fourthLayout.setBackgroundColor(Color.parseColor("#0a1720"));
+                UltimateBar.newColorBuilder()
+                        .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                        .statusDepth(50)                // 状态栏颜色深度
+                        .build(this)
+                        .apply();
                 if (fg4 == null) {
                     fg4 = new FourFragment();
                     fragmentTransaction.add(R.id.content, fg4);

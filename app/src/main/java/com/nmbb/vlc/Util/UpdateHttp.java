@@ -22,9 +22,9 @@ public class UpdateHttp {
    String Updateurl=null;
     UpdeateStatusData updeateStatusData;
     public String updatePostHttp() {
-        String path = "http://120.78.137.182/element-admin/version/an-check";
+        String path = "http://123.249.28.108:8081/element-admin/version/an-check";
 //        String path = "http://192.168.43.65:8090/element-admin/version/an-check";
-        String version = "1525609543750";
+        String version = "1533965455521";
         UpdateData updateData = new UpdateData();
         updateData.setVersion(version);
         updateData.setType("APP05");

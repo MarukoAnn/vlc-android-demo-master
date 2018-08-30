@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#edebe9"
+    android:background="#f5f5f5"
     xmlns:tools="http://schemas.android.com/tools">
 
     <include
@@ -113,7 +113,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="30dp"
-        android:background="#1a1a1a"
+        android:background="@drawable/login_btn"
         android:layout_below="@+id/relativeLayout2"
         android:text="确  定"
         android:textSize="20dp"

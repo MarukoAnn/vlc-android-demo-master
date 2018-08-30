@@ -6,6 +6,7 @@ package com.nmbb.vlc.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.zackratos.ultimatebar.UltimateBar;
 import com.google.gson.Gson;
 import com.nmbb.vlc.Util.DataDBHepler;
 import com.nmbb.vlc.Util.DownloadUtil;
@@ -48,14 +50,19 @@ public class LoginActivity extends Activity {
     EditText username;
     EditText password;
     Button login_btn;
-    String path = "http://120.78.137.182/element-admin/user/login";
-    String Loginurl = "http://120.78.137.182/element-admin/user/logout";
+    String path = "http://123.249.28.108:8081/element-admin/user/login";
+    String Loginurl = "http://123.249.28.108:8081/element-admin/user/logout";
     DataDBHepler dbHepler;
     String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        UltimateBar.newColorBuilder()
+                .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
+                .statusDepth(50)                // 状态栏颜色深度
+                .build(this)
+                .apply();
         ViewLayout();
         init();
         dbHepler = new DataDBHepler(getBaseContext());
@@ -103,11 +110,15 @@ public class LoginActivity extends Activity {
                     public void run() {
                         Looper.prepare();
                         try {
+                            if(username.getText().toString().equals("")||password.getText().toString().equals(""))
+                            {
+                                Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+                            }
                             result = GetPostLogin(username.getText().toString(), password.getText().toString(), path);
                         }catch (Exception e)
                         {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),"网络无连接",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"服务器故障",Toast.LENGTH_SHORT).show();
                         }
                         try {
                             if (result.equals("10")) {
