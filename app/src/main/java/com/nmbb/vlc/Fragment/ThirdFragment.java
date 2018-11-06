@@ -6,9 +6,13 @@ package com.nmbb.vlc.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,14 +27,33 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.nmbb.vlc.Util.DataDBHepler;
+import com.nmbb.vlc.modle.CreameStatusData;
+import com.nmbb.vlc.modle.DataGid;
+import com.nmbb.vlc.modle.GetUrlData;
 import com.nmbb.vlc.modle.ListUrlData;
 import com.nmbb.vlc.modle.ProductListBean;
+import com.nmbb.vlc.modle.SidSelectData;
+import com.nmbb.vlc.modle.SysidGidData;
+import com.nmbb.vlc.modle.UrlData;
 import com.nmbb.vlc.ui.MainActivity;
 import com.nmbb.vlc.ui.VlcVideoActivity;
 import com.nmbb.vlc.R;
 
+import org.videolan.vlc.util.Preferences;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static org.videolan.vlc.util.Preferences.TAG;
 
@@ -38,23 +61,25 @@ import static org.videolan.vlc.util.Preferences.TAG;
 public class ThirdFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     static View view;
-    List list;
     int index;
-    GridView gv;
-    private ViewGroup points;//小圆点指示器
     private ImageView[] ivPoints;//小圆点图片集合
     //    private ViewPager viewPager;
-    private int totalPage;//总的页数
-    private int mPageSize = 9;//每页显示的最大数量
+    List<ListUrlData> listurl = new ArrayList<>();
+
     private List<ProductListBean> listDatas;//总的数据源
-    private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
-    private int currentPage;//当前页
-    private String[] prourl;//提取MainActivity里面传递来的链接数据
-    private String[] proName;
+    String[] prourl;//提取MainActivity里面传递来的链接数据
+    private String[] proname;
+    private String[] pasid;
+    String[] proName;
+    String gid;
     private Integer[] imgs;
     MyGridViewAdapter myGridViewAdapter;
-//    MyViewPagerAdapter myViewPagerAdapter;
-    Spinner sp;
+    DataDBHepler dbHepler;
+    Handler handler;
+    String[] list;
+
+    public ThirdFragment() {
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,27 +87,31 @@ public class ThirdFragment extends Fragment {
         int PasnameLength = ((MainActivity) activity).getPasnameLength();
         Log.i(TAG, "长度为" + PasnameLength);
 //        int PasurlLength  = ((MainActivity)activity).getPasurlLength();
-        proName = new String[PasnameLength];
-        prourl = new String[PasnameLength];
-        proName = ((MainActivity) activity).getpasname();
-        prourl = ((MainActivity) activity).getPasurl();//通过强转成宿主activity，就可以获取到传递过来的数据
+        proname = new String[PasnameLength];
+        pasid = new String[PasnameLength];
+        proname = ((MainActivity) activity).getpasname();
+        pasid = ((MainActivity) activity).getPasid();//通过强转成宿主activity，就可以获取到传递过来的数据
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fg3, container, false);
-        setDatas();
+        dbHepler = new DataDBHepler(getContext());
+        handler = new Handler();
         init();
-        grid();
         return view;
     }
 
     public void init() {
         final Spinner sp;
         sp = view.findViewById(R.id.TD_Spinner);
-        final String[] list = {"生产现场", "厂外监控"};
+        try {
+            list = new String[proname.length];
+
+        for (int i = 0; i < proname.length; i++) {
+            list[i]=proname[i];
+        }
         //第二步：为下拉列表定义一个适配器，这里就用到里前面定义的list。
-        final ArrayAdapter<String> listadapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+        final ArrayAdapter<String> listadapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_text, list);
         //为适配器设置下拉列表下拉时的菜单样式。
         listadapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         //将适配器添加到下拉列表上
@@ -93,9 +122,36 @@ public class ThirdFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(TAG, "位置" + position);
                 index = position;
-                setDatas();
+                gid =pasid[position];
+                Log.i("Fragment","gid："+pasid[position]);
                 listadapter.notifyDataSetChanged();
-                grid();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Looper.prepare();
+                        try {
+                            String result = httpCameraAll();
+                            if (result.equals("10"))
+                            {
+                                Toast.makeText(getContext(),"查询成功",Toast.LENGTH_LONG).show();
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        handler.post(runnableUi);//子线程更新ui时，当子线程需要更新UI时，发消息通知主线程并将更新UI的任务post给主线程，让主线程来完成分内的UI更新操作
+                                    }
+                                }.start();
+
+                            }else {
+                                Toast.makeText(getContext(),"查询失败，服务器故障",Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(),"查询失败，服务器故障",Toast.LENGTH_LONG).show();
+                        }
+                        Looper.loop();
+                    }
+                }).start();
+
             }
 
             @Override
@@ -103,9 +159,23 @@ public class ThirdFragment extends Fragment {
 
             }
         });
+        } catch (Exception e) {
+            Toast.makeText(getActivity(),"服务器故障",Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
     }
 
     private void setDatas() {
+        Log.i("Fragment","listurl:"+listurl.size());
+        prourl = new String[listurl.size()];
+        proName = new String[listurl.size()];
+        for (int i = 0; i < listurl.size(); i++) {
+            Log.i("Fragment","第一个视频的连接为:"+listurl.get(0).getOuterUrl());
+            prourl[i]=listurl.get(i).getOuterUrl();
+            proName[i]=listurl.get(i).getValue();
+            Log.i("Fragment","数据为"+listurl.get(i).getOuterUrl());
+        }
         setimage(index);
         listDatas = new ArrayList<>();
         try {
@@ -131,22 +201,28 @@ public class ThirdFragment extends Fragment {
                     R.drawable.image6, R.drawable.image1, R.drawable.image3, R.drawable.image2, R.drawable.image1,
                     R.drawable.image5, R.drawable.image6, R.drawable.image3, R.drawable.image5, R.drawable.image6,
                     R.drawable.image2, R.drawable.image5, R.drawable.image4, R.drawable.image3};
-            Log.i(TAG, "图片二" + imgs);
+            Log.i(TAG, "图片二" + Arrays.toString(imgs));
         }
     }
+    /**
+     * 建立子线程的传递ui给主线程修改
+     */
+    Runnable runnableUi = new Runnable() {
+        @Override
+        public void run() {
+            //更新界面
+            grid();
+        }
 
+    };
     public void grid() {
+        setDatas();
         GridView gv = view.findViewById(R.id.gridView1);
-        //为GridView设置适配器
        myGridViewAdapter = new MyGridViewAdapter(getContext(), listDatas);
        gv.setAdapter(myGridViewAdapter);
         //注册监听事件
-    }
 
-
-
-
-    public class MyGridViewAdapter extends BaseAdapter {
+    } public class MyGridViewAdapter extends BaseAdapter {
 
         private List<ProductListBean> listData;
         private LayoutInflater inflater;
@@ -221,8 +297,50 @@ public class ThirdFragment extends Fragment {
         }
     }
 
+        protected String httpCameraAll() {
+            //耗时的操作
+            String path = "http://119.23.219.22:80/element/QueryCameraAll";
+            Gson gson = new Gson();
+            String resultStatus =null;
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset = utf-8");
+            FormBody body = new FormBody.Builder()
+                    .add("gId", gid)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(path)
+                    .post(body)
+                    .build();
+            String result ="";
+            try {
+                Response response = client.newCall(request).execute();
+                //获取后台传输的额status状态码
+                result = response.body().string();
+                List<ListUrlData> listdata = null;
+                GetUrlData getUrlData = gson.fromJson(result, GetUrlData.class);
+                Log.i(Preferences.TAG, "最初为：" + getUrlData.getValues());
+                UrlData urlData = getUrlData.getValues();
+                Log.i(Preferences.TAG, "数据为：" + urlData.getDatas());
+                listdata = urlData.getDatas();
+                resultStatus =getUrlData.getStatus();
+                if (listdata.size()!=0) {
 
-}
+                    for (int i = 0; i < listdata.size(); i++) {
+                        String valus = listdata.get(i).getValue();
+                        String status = listdata.get(i).getStatus();
+                        String outerUrl = listdata.get(i).getOuterUrl();
+                        ListUrlData p = new ListUrlData(valus, outerUrl, status);
+                        listurl.add(p);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(ContentValues.TAG, "doInBackground: ",e );
+            }
+            return resultStatus;
+
+        }
+    }
 
 
 

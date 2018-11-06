@@ -7,8 +7,13 @@ package com.nmbb.vlc.modle;
 public class ReturnStatusData {
     private String status;
     private String  sid;
-    private String  sysids;
+    private String  systemInfo;
 
+    public  ReturnStatusData(String sid,String systemInfo,String status) {
+        this.sid = sid;
+        this.systemInfo =systemInfo;
+        this.status =status;
+    }
     public String getStatus() {
         return status;
     }
@@ -18,21 +23,19 @@ public class ReturnStatusData {
         return status;
     }
 
-    public String getSysids() {
-        return sysids;
-    }
-
-    public void setSysids(String sysids) {
-        this.sysids = sysids;
-    }
-
     public String getSid() {
         return sid;
     }
 
-    public String setSid(String sid,String sysids) {
+    public void setSid(String sid) {
         this.sid = sid;
-        this.sysids =sysids;
-        return sid;
+    }
+
+    public String getSystemInfo() {
+        return systemInfo;
+    }
+
+    public void setSystemInfo(String systemInfo) {
+        this.systemInfo = systemInfo;
     }
 }

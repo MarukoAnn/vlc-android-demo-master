@@ -2,11 +2,11 @@ package com.nmbb.vlc.modle;
 
 public class ListUrlData {
     private String value;
-    private String outer_url;
+    private String outerUrl;
     private String status;
 
-    public ListUrlData(String value, String outer_url, String status) {
-        this.outer_url =outer_url;
+    public ListUrlData(String value, String outerUrl, String status) {
+        this.outerUrl =outerUrl;
         this.status = status;
         this.value = value;
     }
@@ -19,8 +19,8 @@ public class ListUrlData {
         this.value = value;
     }
 
-    public String getOuter_url() {
-        return outer_url;
+    public String getOuterUrl() {
+        return outerUrl;
     }
 
     public void setStatus(String status) {
@@ -31,7 +31,7 @@ public class ListUrlData {
         return value;
     }
 
-    public void setOuter_url(String outer_url) {
-        this.outer_url = outer_url;
+    public void setOuterUrl(String outerUrl) {
+        this.outerUrl = outerUrl;
     }
 }

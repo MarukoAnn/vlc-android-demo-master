@@ -113,7 +113,7 @@ public class PersonalActivity extends Activity {
                 //耗时的操作
                 String  SidStatus = null;
                 String result = null;
-                String url = "http://123.249.28.108:8081/element-admin/user/query-self";
+                String url = "http://119.23.219.22:80/element-admin/user/query-self";
                 OkHttpClient client = new OkHttpClient();
                 Gson gson = new Gson();
 

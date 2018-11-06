@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="260dp"
+        android:layout_width="@dimen/qb_px_260"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/dialog_style"
@@ -16,30 +16,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
+            android:layout_margin="@dimen/qb_px_15"
             android:gravity="center"
             android:text="消息提示"
-            android:textSize="16sp"
+            android:textSize="@dimen/qb_px_20"
             tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/qb_px_20"
+            android:layout_marginRight="@dimen/qb_px_20"
             android:text="检测有新版本,是否更新?"
+            android:textSize="@dimen/qb_px_16"
             tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/qb_px_15"
             android:background="#E4E4E4" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/qb_px_40"
             android:orientation="horizontal">
 
             <Button
@@ -47,13 +48,13 @@
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/qb_px_10"
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="取消"
-                android:textSize="16sp"
+                android:textSize="@dimen/qb_px_16"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
             <View
@@ -65,13 +66,13 @@
                 android:id="@+id/yes"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="@dimen/qb_px_10"
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="更新"
-                android:textSize="16sp"
+                android:textSize="@dimen/qb_px_16"
                 tools:ignore="HardcodedText,RtlHardcoded" />
         </LinearLayout>
     </LinearLayout>

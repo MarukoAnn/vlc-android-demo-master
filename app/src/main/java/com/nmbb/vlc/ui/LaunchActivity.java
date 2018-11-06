@@ -3,6 +3,8 @@ package com.nmbb.vlc.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -20,9 +22,8 @@ import java.util.ArrayList;
  */
 
 public class LaunchActivity extends Activity {
-    String Loginurl = "http://123.249.28.108:8081/element-admin/user/logout";
-    String Msid;
-    String result;
+    String Msid=null;
+    String updateApkUrl=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +78,7 @@ public class LaunchActivity extends Activity {
                     //耗时任务，比如加载网络数据
                     UpdateHttp updateHttp = new UpdateHttp();
                     try {
-                        result = updateHttp.updatePostHttp();
+                        updateApkUrl = updateHttp.updatePostHttp();
                     }catch (Exception e)
                     {
                         e.printStackTrace();
@@ -88,7 +89,7 @@ public class LaunchActivity extends Activity {
                         public void run() {
                             try {
                                 if (Msid != null) {
-                                    if (result == null) {
+                                    if (updateApkUrl == null) {
                                         Intent intent = new Intent();
                                         intent.putExtra("url", "null");
                                         //跳转至 MainActivity
@@ -98,7 +99,7 @@ public class LaunchActivity extends Activity {
                                         LaunchActivity.this.finish();
                                     } else {
                                         Intent intent = new Intent();
-                                        intent.putExtra("url", result);
+                                        intent.putExtra("url", updateApkUrl);
                                         //跳转至 MainActivity
                                         intent.setClass(LaunchActivity.this, MainActivity.class);
                                         startActivity(intent);
@@ -106,7 +107,7 @@ public class LaunchActivity extends Activity {
                                         LaunchActivity.this.finish();
                                     }
                                 } else {
-                                    if (result == null) {
+                                    if (updateApkUrl == null) {
                                         Intent intent = new Intent();
                                         intent.putExtra("url", "null");
                                         //跳转至 MainActivity
@@ -116,7 +117,7 @@ public class LaunchActivity extends Activity {
                                         LaunchActivity.this.finish();
                                     } else {
                                         Intent intent = new Intent();
-                                        intent.putExtra("url", result);
+                                        intent.putExtra("url", updateApkUrl);
                                         //跳转至 MainActivity
                                         intent.setClass(LaunchActivity.this, LoginActivity.class);
                                         startActivity(intent);
@@ -135,4 +136,14 @@ public class LaunchActivity extends Activity {
                 }
             }).start();
         }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ConnectivityManager connectivityManager =(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isAvailable()){
+            Toast.makeText(getApplicationContext(),"网络未连接",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

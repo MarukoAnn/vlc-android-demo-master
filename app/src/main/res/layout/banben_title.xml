@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/returnview2"
-        android:layout_width="34dp"
-        android:layout_height="31dp"
+        android:layout_width="@dimen/qb_px_34"
+        android:layout_height="@dimen/qb_px_31"
         android:layout_gravity="center"
         android:background="@drawable/ic_fanhui"
         tools:ignore="ContentDescription" />
@@ -16,10 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="版本信息"
-        android:textSize="24dp"
+        android:textSize="@dimen/qb_px_24"
         android:gravity="center"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="@dimen/qb_px_30"
         android:textColor="#ffffff"
         tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 </LinearLayout>

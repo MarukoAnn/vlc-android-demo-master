@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="@dimen/qb_px_50"
     android:background="#253847">
 
     <ImageView
         android:id="@+id/return_view"
-        android:layout_width="36dp"
-        android:layout_height="35dp"
+        android:layout_width="@dimen/qb_px_36"
+        android:layout_height="@dimen/qb_px_35"
         android:layout_gravity="center"
         android:background="@drawable/ic_fanhui"
         tools:ignore="ContentDescription" />
@@ -16,10 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="个人资料"
-        android:textSize="24dp"
-        android:layout_marginRight="30dp"
+        android:textSize="@dimen/qb_px_24"
+        android:layout_marginRight="@dimen/qb_px_30"
         android:gravity="center"
         android:layout_gravity="center_vertical"
-        android:textColor="#000"
+        android:textColor="#fff"
         tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 </LinearLayout>

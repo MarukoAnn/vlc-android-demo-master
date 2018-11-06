@@ -10,23 +10,25 @@
     <include
         android:id="@+id/show_mainfg1_title"
         layout="@layout/banben_title" />
+
     <ImageView
         android:id="@+id/h_head"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/qb_px_121"
+        android:layout_height="@dimen/qb_px_125"
         android:layout_below="@id/show_mainfg1_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/qb_px_100"
         android:background="@drawable/ic_banben" />
     <TextView
         android:layout_below="@id/h_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/qb_px_20"
         android:textStyle="bold"
         android:text="版本号 1.0.1"
+        android:textSize="@dimen/qb_px_20"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -34,16 +36,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="@dimen/qb_px_44"
         android:text="彩铝制造      生产监视"
         android:textColor="#a3a0a0"
+        android:textSize="@dimen/qb_px_15"
         tools:ignore="HardcodedText" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/qb_px_20"
+        android:textSize="@dimen/qb_px_15"
         android:text="        Copyright   ba | aba | a.............."
         android:textColor="#a3a0a0"
         tools:ignore="HardcodedText" />

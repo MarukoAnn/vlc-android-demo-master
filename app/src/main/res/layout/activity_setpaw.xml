@@ -12,21 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/show_set_title"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/qb_px_30"
+        android:layout_marginLeft="@dimen/qb_px_20"
         android:gravity="center_vertical"
         tools:ignore="RtlHardcoded,UselessLeaf,UselessParent"
         android:id="@+id/relativeLayout">
         <TextView
             android:id="@+id/user"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/qb_px_10"
+            android:layout_marginLeft="@dimen/qb_px_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="旧密码:"
-            android:textSize="20dp"
+            android:textSize="@dimen/qb_px_20"
             android:textColor="#262626"
             tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
         <EditText
@@ -34,7 +34,7 @@
             android:layout_below="@id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="@dimen/qb_px_30"
             android:inputType="textPassword"
             tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
     </RelativeLayout>
@@ -42,9 +42,9 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/qb_px_20"
         android:layout_below="@+id/relativeLayout"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="@dimen/qb_px_13"
         tools:ignore="RtlHardcoded,UselessLeaf,UselessParent"
         android:id="@+id/relativeLayout3">
 
@@ -52,10 +52,10 @@
             android:id="@+id/newpswtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/qb_px_10"
             android:text="新密码:"
             android:textColor="#262626"
-            android:textSize="20dp"
+            android:textSize="@dimen/qb_px_20"
             tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 
         <EditText
@@ -63,7 +63,7 @@
             android:layout_below="@id/newpswtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="@dimen/qb_px_30"
             android:inputType="textPassword"
             tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
     </RelativeLayout>
@@ -73,9 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/qb_px_20"
         android:layout_below="@+id/relativeLayout3"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="@dimen/qb_px_13"
         tools:ignore="RtlHardcoded,UselessLeaf,UselessParent"
         android:id="@+id/relativeLayout2">
 
@@ -83,9 +83,9 @@
             android:id="@+id/sureNewPsw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/qb_px_10"
             android:text="确认密码:"
-            android:textSize="20dp"
+            android:textSize="@dimen/qb_px_20"
             android:textColor="#262626"
             tools:ignore="HardcodedText,SpUsage" />
 
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sureNewPsw"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="@dimen/qb_px_30"
             android:inputType="textPassword"
             tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
         <TextView
@@ -102,21 +102,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/set_sureSetpsw"
             android:text="@string/newpswDescription"
-            android:textSize="15dp"
+            android:textSize="@dimen/qb_px_15"
             tools:ignore="SpUsage" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/setpsw_btn"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="30dp"
+        android:layout_height="@dimen/qb_px_60"
+        android:layout_marginTop="@dimen/qb_px_30"
+        android:layout_marginLeft="@dimen/qb_px_20"
+        android:layout_marginRight="@dimen/qb_px_30"
         android:background="@drawable/login_btn"
         android:layout_below="@+id/relativeLayout2"
         android:text="确  定"
-        android:textSize="20dp"
+        android:textSize="@dimen/qb_px_20"
         android:textColor="#ffffff"
         tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 </RelativeLayout>

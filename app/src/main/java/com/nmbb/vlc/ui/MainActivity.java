@@ -28,9 +28,12 @@ import com.nmbb.vlc.Fragment.ThirdFragment;
 import com.nmbb.vlc.R;
 import com.nmbb.vlc.Util.DataDBHepler;
 import com.nmbb.vlc.Util.SpostupdateHttp;
+import com.nmbb.vlc.modle.CreameStatusData;
+import com.nmbb.vlc.modle.DataGid;
 import com.nmbb.vlc.modle.GetUrlData;
 import com.nmbb.vlc.modle.ListUrlData;
 import com.nmbb.vlc.modle.SidSelectData;
+import com.nmbb.vlc.modle.SysidGidData;
 import com.nmbb.vlc.modle.UrlData;
 
 import org.videolan.vlc.util.Preferences;
@@ -71,17 +74,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView thirdText;
     private TextView fourthText;
     // 定义几个颜色
+    List<DataGid>  listData = new ArrayList<>();
     private int whirt = 0xFFFFFFFF;
-    private int gray = 0xFF7597B3;
-    private int dark = 0xff000000;
-
-    String path = "http://123.249.28.108:8081/element-admin/user/sid-update";
-    String url = "http://123.249.28.108:8081/element/QueryCameraAll";
+    String url= "http://119.23.219.22:80/element/SelectCameraGroupAll";
+    String path = "http://119.23.219.22:80/element-admin/user/sid-update";
+    String[] pasname;
+    String[] pasid;
     // 定义FragmentManager对象管理器
     String index;
-    List<ListUrlData> listurl = new ArrayList<>();
-    String[] pasname;
-    String[] pasurl;
+    String SysInfo;
+
     private FragmentManager fragmentManager;
 
     @Override
@@ -108,7 +110,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     {
                         setPasname();
                     }else {
-                       Log.i(TAG,"获取错误");
+                        Log.i(TAG,"获取错误");
                     }
                 }catch (Exception e)
                 {
@@ -143,18 +145,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private void initView() {
 // 初始化底部导航栏的控件
-        firstImage = (ImageView) findViewById(R.id.first_image);
-        secondImage = (ImageView) findViewById(R.id.second_image);
-        thirdImage = (ImageView) findViewById(R.id.third_image);
-        fourthImage = (ImageView) findViewById(R.id.fourth_image);
-        firstText = (TextView) findViewById(R.id.first_text);
-        secondText = (TextView) findViewById(R.id.second_text);
-        thirdText = (TextView) findViewById(R.id.third_text);
-        fourthText = (TextView) findViewById(R.id.fourth_text);
-        firstLayout = (RelativeLayout) findViewById(R.id.first_layout);
-        secondLayout = (RelativeLayout) findViewById(R.id.second_layout);
-        thirdLayout = (RelativeLayout) findViewById(R.id.third_layout);
-        fourthLayout = (RelativeLayout) findViewById(R.id.fourth_layout);
+        firstImage = findViewById(R.id.first_image);
+        secondImage = findViewById(R.id.second_image);
+        thirdImage =  findViewById(R.id.third_image);
+        fourthImage =  findViewById(R.id.fourth_image);
+        firstText =   findViewById(R.id.first_text);
+        secondText =  findViewById(R.id.second_text);
+        thirdText =  findViewById(R.id.third_text);
+        fourthText =  findViewById(R.id.fourth_text);
+        firstLayout = findViewById(R.id.first_layout);
+        secondLayout = findViewById(R.id.second_layout);
+        thirdLayout = findViewById(R.id.third_layout);
+        fourthLayout = findViewById(R.id.fourth_layout);
         firstLayout.setOnClickListener(MainActivity.this);
         secondLayout.setOnClickListener(MainActivity.this);
         thirdLayout.setOnClickListener(MainActivity.this);
@@ -170,7 +172,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     ArrayList<SidSelectData> DataList = dataDBHepler.FindSidData();
                     final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid(),DataList.get(0).getSysids());
                     String Msid = data.getSid();//获取数据库里的sid
-
+                    SysInfo=data.getSysids();
+                    Log.i(Preferences.TAG,"sysId:"+data.getSysids());
                     SpostupdateHttp spostupdateHttp = new SpostupdateHttp();
                     String result = spostupdateHttp.posthttpresult(Msid,path);
                     if (result.equals("13"))
@@ -348,13 +351,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public String posthttpresult(String path) {
 
-        String result = null;
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         String resultStatus=null;
         MediaType JSON = MediaType.parse("application/json; charset = utf-8");
         FormBody body = new FormBody.Builder()
-                .add("gid", "1")
+                .add("sysids", SysInfo.replace("[","").replace("]",""))
                 .build();
         Request request = new Request.Builder()
                 .url(path)
@@ -362,56 +364,50 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            result = response.body().string();
-            GetUrlData getUrlData = gson.fromJson(result, GetUrlData.class);
-            Log.i(Preferences.TAG, "最初为：" + getUrlData.getValues());
-            UrlData urlData = getUrlData.getValues();
-            resultStatus = getUrlData.getStatus();
-            Log.i(Preferences.TAG, "数据为：" + urlData.getDatas());
-            try {
-                List<ListUrlData> listdata = urlData.getDatas();
-                for (int i = 0; i < listdata.size(); i++) {
-                    String valus = listdata.get(i).getValue();
-                    String status = listdata.get(i).getStatus();
-                    String outer_url = listdata.get(i).getOuter_url();
-                    ListUrlData p = new ListUrlData(valus, outer_url, status);
-                    listurl.add(p);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(MainActivity.this, "网络无连接", Toast.LENGTH_SHORT).show();
+            String result  = response.body().string();
+            CreameStatusData creameStatusData = gson.fromJson(result,CreameStatusData.class);
+            SysidGidData sysidGidData = creameStatusData.getValues();
+            Log.i(Preferences.TAG, "最初为：" + sysidGidData.getDatas());
+            resultStatus = creameStatusData.getStatus();
+            List<DataGid> listdata = null;
+            listdata = sysidGidData.getDatas();
+            for (int i = 0; i < listdata.size(); i++) {
+                String id = listdata.get(i).getId();
+                String value = listdata.get(i).getValue();
+                DataGid p = new DataGid(id, value);
+                listData.add(p);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(MainActivity.this, "网络无连接", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(MainActivity.this, "服务器异常", Toast.LENGTH_SHORT).show();
         }
         Log.i(TAG,"返回值为："+resultStatus);
         return resultStatus;
 
     }
 
-   public void  setPasname(){
-        pasname = new String[listurl.size()];
-        pasurl = new String[listurl.size()];
-        for (int i = 0 ;i<listurl.size();i++)
+    public void  setPasname(){
+        pasname = new String[listData.size()];
+        pasid = new String[listData.size()];
+        for (int i = 0 ;i<listData.size();i++)
         {
-            ListUrlData listUrlData = listurl.get(i);
-            pasname[i]=listUrlData.getValue();
-            pasurl[i]=listUrlData.getOuter_url();
+            DataGid   dataGid = listData.get(i);
+            pasname[i]=dataGid.getValue();
+            pasid[i]=dataGid.getId();
             Log.i(TAG,"数据:"+pasname[i]);
-            Log.i(TAG,"链接为:"+pasurl[i]);
+            Log.i(TAG,"下拉选框:"+pasid[i]);
         }
-   }
-
-   public String[] getpasname(){
-        return pasname;
-   }
-   public int getPasnameLength(){
-        return listurl.size();
-   }
-
-    public String[] getPasurl() {
-        return pasurl;
     }
+
+    public String[] getpasname(){
+        return pasname;
+    }
+    public int getPasnameLength(){
+        return listData.size();
+    }
+
+    public String[] getPasid() {
+        return pasid;
+    }
+
 }

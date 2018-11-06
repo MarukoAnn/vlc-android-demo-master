@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class FourFragment extends Fragment {
 
     View view;
-    String url = "http://120.78.137.182/element-admin/user/logout";
+    String url = "http://119.23.219.22:80/element-admin/user/logout";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fg4, container, false);

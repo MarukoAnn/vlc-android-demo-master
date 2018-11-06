@@ -30,11 +30,11 @@
 
             <ImageView
                 android:id="@+id/h_head"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="@dimen/qb_px_75"
+                android:layout_height="@dimen/qb_px_75"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/qb_px_32"
                 android:background="@drawable/ic_header"
                 tools:ignore="ContentDescription" />
 
@@ -45,10 +45,10 @@
                 android:layout_below="@+id/h_head"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/qb_px_5"
                 android:text="彩铝管理员"
                 android:textColor="#ffffff"
-                android:textSize="22dp"
+                android:textSize="@dimen/qb_px_22"
                 tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
             <TextView
                 android:layout_width="wrap_content"
@@ -57,8 +57,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:text="工号：12652456"
-                android:layout_marginTop="5dp"
-                android:textSize="17dp"
+                android:layout_marginTop="@dimen/qb_px_5"
+                android:textSize="@dimen/qb_px_17"
                 android:textColor="#ffffff"
                 tools:ignore="HardcodedText,RtlHardcoded,SpUsage"
                 android:id="@+id/textView" />
@@ -73,26 +73,26 @@
             tools:ignore="ObsoleteLayoutParam">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/qb_px_60"
                 android:orientation="horizontal"
                 android:background="@drawable/linear_type">
                 <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="@dimen/qb_px_34"
+                    android:layout_height="@dimen/qb_px_34"
+                    android:layout_marginLeft="@dimen/qb_px_10"
                     android:background="@drawable/ic_persionfg"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     tools:ignore="ContentDescription" />
                 <TextView
                     android:id="@+id/pensonal"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="@dimen/qb_px_15"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="个人资料"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/qb_px_22"
                     android:textColor="#000000"
                     android:background="#f9f9f9"
                     android:duplicateParentState="true"
@@ -105,38 +105,38 @@
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:text=">"
-                    android:textSize="25dp"
+                    android:textSize="@dimen/qb_px_25"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="60dp"
+                android:layout_height="@dimen/qb_px_60"
+                android:layout_marginTop="@dimen/qb_px_60"
                 android:focusableInTouchMode="true"
                 android:clickable="true"
                 android:orientation="horizontal"
                 android:background="@drawable/linear_type"
                 android:focusable="true">
                 <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
+                    android:layout_width="@dimen/qb_px_34"
+                    android:layout_height="@dimen/qb_px_34"
                     android:background="@drawable/ic_persionfg2"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/qb_px_10"
                     tools:ignore="ContentDescription" />
                 <TextView
                     android:id="@+id/change_paw"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="@dimen/qb_px_15"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="修改密码"
                     android:textColor="#000000"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/qb_px_22"
                     android:clickable="false"
                     android:duplicateParentState="true"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
@@ -148,19 +148,19 @@
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:text=">"
-                    android:textSize="25dp"
+                    android:textSize="@dimen/qb_px_25"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="120dp"
+                android:layout_height="@dimen/qb_px_60"
+                android:layout_marginTop="@dimen/qb_px_120"
                 android:background="@drawable/linear_type">
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="@dimen/qb_px_30"
+                    android:layout_height="@dimen/qb_px_30"
+                    android:layout_marginLeft="@dimen/qb_px_10"
                     android:background="@drawable/ic_persionfg1"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
@@ -169,12 +169,12 @@
                     android:id="@+id/we"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="@dimen/qb_px_15"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:textColor="#000000"
                     android:text="关于我们"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/qb_px_22"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 
                 <TextView
@@ -184,7 +184,7 @@
                     android:layout_gravity="center"
                     android:textColor="#000000"
                     android:text=">"
-                    android:textSize="25dp"
+                    android:textSize="@dimen/qb_px_25"
                     tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
 
             </LinearLayout>
@@ -193,16 +193,16 @@
         <Button
             android:id="@+id/login_out"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/qb_px_40"
             android:layout_below="@+id/relativeLayout1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/qb_px_20"
+            android:layout_marginLeft="@dimen/qb_px_10"
+            android:layout_marginRight="@dimen/qb_px_10"
             android:background="@drawable/login_btn"
             android:text="退出登录"
             android:textColor="#ffffffff"
-            android:textSize="19dp"
+            android:textSize="@dimen/qb_px_19"
             tools:ignore="HardcodedText,ObsoleteLayoutParam,SpUsage" />
     </RelativeLayout>
 </RelativeLayout>

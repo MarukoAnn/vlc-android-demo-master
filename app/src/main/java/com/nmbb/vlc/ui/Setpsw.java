@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,26 +41,27 @@ import static android.content.ContentValues.TAG;
 
 public class Setpsw extends Activity {
 
-    private String id;
-    private String userCode;
-    private String idCode;
-    private String realName;
-    private String userName;
-    private String homeAddress;
-    private String homeTelephone;
-    private String organizationId;
-    private String password;
-    private String phone;
-    private String email;
-    private String birthday;
-    private String gender;
-    private String idt;
-    private String udt;
-    private String newPsword;
+    private String id=null;
+    private String userCode=null;
+    private String idCode=null;
+    private String realName=null;
+    private String userName=null;
+    private String homeAddress=null;
+    private String homeTelephone=null;
+    private String organizationId=null;
+    private String password=null;
+    private String phone=null;
+    private String email=null;
+    private String birthday=null;
+    private String gender=null;
+    private String idt=null;
+    private String udt=null;
+    private String newPsword=null;
+    private String sysids=null;
 
-    EditText user;
-    EditText oldPsd;
-    EditText newPsd;
+    EditText userEt;
+    EditText oldPsdEt;
+    EditText newPsdEt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,17 +105,17 @@ public class Setpsw extends Activity {
                     public void run() {
                         Looper.prepare();
                           try {
-                              if(user.getText().toString().equals("") || oldPsd.getText().toString().equals("") ||newPsd.getText().toString().equals("")){
+                              if(TextUtils.isEmpty(userEt.getText().toString().trim()) || TextUtils.isEmpty(oldPsdEt.getText().toString().trim()) ||TextUtils.isEmpty(newPsdEt.getText().toString().trim())){
 
                                   Toast.makeText(getApplication(),"密码不能为空",Toast.LENGTH_SHORT).show();
-                              }else if (!oldPsd.getText().toString().equals(newPsd.getText().toString())){
+                              }else if (!oldPsdEt.getText().toString().trim().equals(newPsdEt.getText().toString().trim())){
                                   Toast.makeText(getApplication(),"两次新密码输入不一致",Toast.LENGTH_SHORT).show();
                               }
                               else {
-                                    final String RStus = postSidhttp(Msid,user.getText().toString(),newPsd.getText().toString());
+                                    final String RStus = postSidhttp(Msid,userEt.getText().toString().trim(),newPsdEt.getText().toString().trim());
                                     if (RStus.equals("10"))
                                     {
-                                        String url = "http://123.249.28.108:8081/element-admin/user/logout";
+                                        String url = "http://119.23.219.22:80/element-admin/user/logout";
                                         final SelecthttpUserUtil selecthttpUserUtil = new SelecthttpUserUtil();
                                         selecthttpUserUtil.postSidhttp(Msid,url);
                                     Toast.makeText(getApplicationContext(),"修改成功",Toast.LENGTH_SHORT).show();
@@ -141,16 +143,17 @@ public class Setpsw extends Activity {
     }
 
     public void intView(){
-        user = findViewById(R.id.set_oldpsw);
-        oldPsd = findViewById(R.id.set_newpsw);
-        newPsd = findViewById(R.id.set_sureSetpsw);
+        userEt = findViewById(R.id.set_oldpsw);
+        oldPsdEt = findViewById(R.id.set_newpsw);
+        newPsdEt
+                = findViewById(R.id.set_sureSetpsw);
     }
 
     public String postSidhttp(String Sid, String oldpsword, String newpsword) {
         String  SidStatus = null;
         String  status = "20";
         newPsword = newpsword;
-        String url = "http://123.249.28.108:8081/element-admin/user/query-self";
+        String url = "http://119.23.219.22:80/element-admin/user/query-self";
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         ResultData mdata = new ResultData();
@@ -208,9 +211,9 @@ public class Setpsw extends Activity {
 
     public String ChangePsw() {
         String mStatus =null;
-        String path = "http://123.249.28.108:8081/element-admin/user/update-self";
+        String path = "http://119.23.219.22:80/element-admin/user/update-self";
 
-        ReturnPostData data = new ReturnPostData(id,idCode,userCode,realName,userName,homeAddress,homeTelephone,organizationId,newPsword,phone,email,birthday,gender,idt,udt);
+        ReturnPostData data = new ReturnPostData(id,idCode,userCode,realName,userName,homeAddress,homeTelephone,organizationId,newPsword,phone,email,birthday,gender,idt,udt,sysids);
 
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();

@@ -4,7 +4,6 @@
     package="com.nmbb.vlc">
 
     <uses-sdk
-        android:minSdkVersion="9"
         android:targetSdkVersion="19"
         tools:ignore="GradleOverrides,OldTargetApi" />
 
@@ -32,7 +31,7 @@
         <activity android:name=".ui.LoginActivity">
         </activity>
         <activity android:name=".ui.MainActivity" android:theme="@style/Theme.AppCompat"/>
-        
+
         <activity android:name=".ui.PersonalActivity"/>
         <activity android:name=".ui.Setpsw"/>
         <activity android:name=".ui.banbenActivity"/>

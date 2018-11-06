@@ -155,9 +155,9 @@ public class DataDBHepler extends SQLiteOpenHelper {
     }
 
     //更新数据
-    public void  update(String sid){
+    public void  update(String sid,String sysids){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE Sid_table SET Sid = '" + sid +"' WHERE id= '1'");
+        db.execSQL("UPDATE Sid_table SET Sid = '" + sid +"',sysids='"+sysids+"' WHERE id= '1'");
     }
     //更新Oid
     public void  updateoid(String oid){
@@ -176,10 +176,10 @@ public class DataDBHepler extends SQLiteOpenHelper {
      * @param id
      * @param sid
      */
-    public void add(String id, String sid){
+    public void add(String id, String sid,String sysids){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("insert into Sid_table(id,sid) values(?,?)",
-                new Object[]{id,sid});
+        db.execSQL("insert into Sid_table(id,sid,sysids) values(?,?,?)",
+                new Object[]{id,sid,sysids});
     }
     /**
      * 插入oid

@@ -18,7 +18,7 @@
     <!--3. 底部的四个选项菜单-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/qb_px_60"
         android:background="#FFFFFF"
         tools:ignore="DisableBaselineAlignment">
         <!--四个部分都一样：ImageView + TextView-->
@@ -36,8 +36,8 @@
                 <ImageView
                     android:layout_marginTop="2dp"
                     android:id="@+id/first_image"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/qb_px_40"
+                    android:layout_height="@dimen/qb_px_35"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_compass"
                     tools:ignore="ContentDescription" />
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/qb_px_2"
                     android:text="运行情况"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
@@ -66,9 +66,9 @@
 
                 <ImageView
                     android:id="@+id/second_image"
-                    android:layout_marginTop="2dp"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
+                    android:layout_marginTop="@dimen/qb_px_2"
+                    android:layout_width="@dimen/qb_px_40"
+                    android:layout_height="@dimen/qb_px_35"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_agenda"
                     tools:ignore="ContentDescription" />
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/qb_px_2"
                     android:text="生产监视"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
@@ -97,8 +97,8 @@
                 <ImageView
                     android:id="@+id/third_image"
                     android:layout_marginTop="2dp"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/qb_px_40"
+                    android:layout_height="@dimen/qb_px_35"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_mapmode"
                     tools:ignore="ContentDescription" />
@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/qb_px_2"
                     android:text="视屏监控"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
@@ -126,9 +126,9 @@
                 tools:ignore="UseCompoundDrawables,UselessParent">
                 <ImageView
                     android:id="@+id/fourth_image"
-                    android:layout_marginTop="2dp"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
+                    android:layout_marginTop="@dimen/qb_px_2"
+                    android:layout_width="@dimen/qb_px_40"
+                    android:layout_height="@dimen/qb_px_35"
                     android:layout_gravity="center_horizontal"
                     android:src="@android:drawable/ic_menu_myplaces"
                     tools:ignore="ContentDescription" />
@@ -137,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/qb_px_2"
                     android:text="我的"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
