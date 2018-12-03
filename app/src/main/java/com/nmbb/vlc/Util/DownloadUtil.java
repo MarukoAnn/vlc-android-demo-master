@@ -1,5 +1,6 @@
 package com.nmbb.vlc.Util;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +8,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -102,7 +105,20 @@ public class DownloadUtil {
     private void installAPK() {
         //获取下载文件的Uri
         Uri downloadFileUri = downloadManager.getUriForDownloadedFile(downloadId);
-        if (downloadFileUri != null) {
+        if (downloadFileUri != null && Build.VERSION.SDK_INT>=Build.VERSION_CODES.N) {
+            Intent intent= new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
+            mContext.startActivity(intent);
+            mContext.unregisterReceiver(receiver);
+        }else if (downloadFileUri != null &&Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            boolean hasInstallPermission = mContext.getPackageManager().canRequestPackageInstalls();
+            if (!hasInstallPermission) {
+                startInstallPermissionSettingActivity();
+            }
+        }
+        else if (downloadFileUri != null){
             Intent intent= new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -111,4 +127,10 @@ public class DownloadUtil {
         }
     }
 
+    private void startInstallPermissionSettingActivity() {
+        //注意这个是8.0新API
+        @SuppressLint("InlinedApi") Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
 }

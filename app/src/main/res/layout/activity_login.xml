@@ -123,7 +123,7 @@
                     android:layout_marginLeft="@dimen/qb_px_20"
                     android:layout_marginRight="@dimen/qb_px_20"
                     android:layout_marginTop="@dimen/qb_px_30"
-                    android:background="@drawable/login_btn"
+                    android:background="@drawable/loginbtn"
                     android:gravity="center"
                     android:text="登    录"
                     android:textColor="#ffffff"

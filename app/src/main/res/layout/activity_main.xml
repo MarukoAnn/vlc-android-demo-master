@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/qb_px_2"
-                    android:text="视屏监控"
+                    android:text="视频监控"
                     android:textColor="#7597B3"
                     tools:ignore="HardcodedText" />
             </LinearLayout>

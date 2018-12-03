@@ -1,8 +1,8 @@
 package com.nmbb.vlc.ui;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
@@ -13,7 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,11 +29,9 @@ import com.nmbb.vlc.Util.DataDBHepler;
 import com.nmbb.vlc.Util.SpostupdateHttp;
 import com.nmbb.vlc.modle.CreameStatusData;
 import com.nmbb.vlc.modle.DataGid;
-import com.nmbb.vlc.modle.GetUrlData;
-import com.nmbb.vlc.modle.ListUrlData;
+
 import com.nmbb.vlc.modle.SidSelectData;
 import com.nmbb.vlc.modle.SysidGidData;
-import com.nmbb.vlc.modle.UrlData;
 
 import org.videolan.vlc.util.Preferences;
 
@@ -51,15 +48,12 @@ import static android.content.ContentValues.TAG;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     // 初始化顶部栏显示
-    private ImageView titleLeftImv;
-    private TextView titleTv;
     // 定义4个Fragment对象
     private FirstFragment fg1;
     private SecondFragment fg2;
     private ThirdFragment fg3;
     private FourFragment fg4;
     // 帧布局对象，用来存放Fragment对象
-    private FrameLayout frameLayout;
     // 定义每个选项中的相关控件
     private RelativeLayout firstLayout;
     private RelativeLayout secondLayout;
@@ -92,6 +86,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
         initView(); // 初始化界面控件
+        //设置不能横屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         index = getIntent().getStringExtra("index");
         if (index!=null) {
             setChioceItem(Integer.parseInt(index));

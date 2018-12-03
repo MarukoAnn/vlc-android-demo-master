@@ -2,12 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.nmbb.vlc"
         minSdkVersion 15
-        targetSdkVersion 28
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -33,10 +34,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:25.4.0'
     implementation 'com.squareup.okio:okio:1.14.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.google.code.gson:gson:2.8.1'
     implementation 'com.zyao89:zloading:1.1.1'
     implementation 'com.github.zackratos.ultimatebar:ultimatebar2:2.0.0'//状态栏透明设置
+    //图片选择器
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.0'
 }
