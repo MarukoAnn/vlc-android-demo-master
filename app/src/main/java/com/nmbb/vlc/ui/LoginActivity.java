@@ -128,7 +128,6 @@ public class LoginActivity extends Activity {
                         try {
                             if (result.equals("10")) {
 //
-
                                     if (dbHepler.isIdoruserpass())
                                     {
                                         dbHepler.updateUserpass(usernameEt.getText().toString().trim(),passwordEt.getText().toString().trim());
@@ -143,7 +142,10 @@ public class LoginActivity extends Activity {
                             } else if (result.equals("12")) {
                                 Toast.makeText(getApplicationContext(), "登录失败，服务器故障", Toast.LENGTH_SHORT).show();//提示用户登录失败
                             } else if (result.equals("14")) {
-                                Toast.makeText(getApplicationContext(), "登录失败，用户已存在不能重复登录", Toast.LENGTH_SHORT).show();//提示用户登录失败
+                                Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();//提示用户登录成功
+                                Intent intent = new Intent();
+                                intent.setClass(LoginActivity.this,MainActivity.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(), "登录失败，用户名或密码错误", Toast.LENGTH_SHORT).show();//提示用户登录失败
                             }
@@ -210,7 +212,7 @@ public class LoginActivity extends Activity {
 
         Ldata.setUname(uname);
         Ldata.setUpwd(upsd);
-        Ldata.setModule("AN2");
+        Ldata.setModule("AN5");
         Gson gson = new Gson();
         String json = gson.toJson(Ldata);//将其转换为JSON数据格式
 

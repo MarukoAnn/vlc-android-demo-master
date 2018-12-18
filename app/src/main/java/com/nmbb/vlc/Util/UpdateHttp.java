@@ -24,7 +24,7 @@ public class UpdateHttp {
     public String updatePostHttp() {
         String path = "http://119.23.219.22:80/element-admin/version/an-check";
 //        String path = "http://192.168.43.65:8090/element-admin/version/an-check";
-        String version = "1543803015859";
+        String version = "1545104858197";
         UpdateData updateData = new UpdateData();
         updateData.setVersion(version);
         updateData.setType("APP05");
