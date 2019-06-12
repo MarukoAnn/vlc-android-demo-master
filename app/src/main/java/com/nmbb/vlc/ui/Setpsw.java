@@ -93,9 +93,11 @@ public class Setpsw extends Activity {
         ArrayList<SidSelectData> DataList = dataDBHepler.FindSidData();
         final SidSelectData data = new SidSelectData(DataList.get(0).getId(),DataList.get(0).getSid(),DataList.get(0).getSysids());
         Log.i(TAG,"数据库的sid为："+data.getSid());
+        sysids = data.getSysids().replace("[","").replace("]","");
         final String Msid = data.getSid();
 
 
+        // TODO  修改密码
         Button btn = findViewById(R.id.setpsw_btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,8 +147,7 @@ public class Setpsw extends Activity {
     public void intView(){
         userEt = findViewById(R.id.set_oldpsw);
         oldPsdEt = findViewById(R.id.set_newpsw);
-        newPsdEt
-                = findViewById(R.id.set_sureSetpsw);
+        newPsdEt = findViewById(R.id.set_sureSetpsw);
     }
 
     public String postSidhttp(String Sid, String oldpsword, String newpsword) {
@@ -172,12 +173,9 @@ public class Setpsw extends Activity {
         try {
             Response response = client.newCall(request).execute();
             String result = response.body().string();
-
             Log.i(TAG,"访问网络"+result);
-
             RSpostData rSpostData= gson.fromJson(result, RSpostData.class);
             Log.i(TAG,"data数据为："+rSpostData.getData());
-
             ReturnPostData returnPostData = rSpostData.getData();
             id =returnPostData.getId();
             userCode = returnPostData.getUserCode();
@@ -237,5 +235,10 @@ public class Setpsw extends Activity {
             e.printStackTrace();
         }
         return mStatus;
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.down_in, R.anim.down_out);
     }
 }

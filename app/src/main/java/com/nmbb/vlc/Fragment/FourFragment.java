@@ -48,7 +48,8 @@ import static android.content.ContentValues.TAG;
 public class FourFragment extends Fragment {
 
     View            view;
-    String          url = "http://119.23.219.22:80/element-admin/user/logout";
+//    String          url = "http://119.23.219.22:80/element-admin/user/logout";
+    String          url = "http://106.13.108.160:8080/element-admin/user/logout";
     SavePamasInfo   mSavePamasInfo = new SavePamasInfo();
     CircleImageView mCircleImageView;
     TextView tv_userCode;
@@ -61,6 +62,7 @@ public class FourFragment extends Fragment {
         @Override
         public void onClick(View view) {
             startActivity(new Intent(getActivity(),Setpsw.class));
+            getActivity().overridePendingTransition(R.anim.up_in, R.anim.up_out);
         }
     });
     TextView tv1=(TextView) view.findViewById(R.id.pensonal);
@@ -68,6 +70,7 @@ public class FourFragment extends Fragment {
         @Override
         public void onClick(View view) {
             startActivity(new Intent(getActivity(),PersonalActivity.class));
+            getActivity().overridePendingTransition(R.anim.up_in, R.anim.up_out);
         }
     });
     TextView tv2 = view.findViewById(R.id.we);
@@ -75,6 +78,7 @@ public class FourFragment extends Fragment {
         @Override
         public void onClick(View view) {
             startActivity(new Intent(getActivity(),banbenActivity.class));
+            getActivity().overridePendingTransition(R.anim.up_in, R.anim.up_out);
         }
     });
         tv_userCode = view.findViewById(R.id.userCode);
@@ -169,6 +173,7 @@ public class FourFragment extends Fragment {
         }
     }
 
+    // TODO 异步请求
     private class AnotherTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPostExecute(String result) {
@@ -191,6 +196,7 @@ public class FourFragment extends Fragment {
 //            String  SidStatus = null;
             String result = null;
             String queryUrl = "http://119.23.219.22:80/element-admin/user/query-self";
+//            String queryUrl = "http://106.13.108.160:8080/element-admin/user/query-self";
             OkHttpClient client = new OkHttpClient();
             Gson gson = new Gson();
 

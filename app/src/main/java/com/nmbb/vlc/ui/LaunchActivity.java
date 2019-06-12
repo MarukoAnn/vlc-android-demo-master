@@ -70,6 +70,7 @@ public class LaunchActivity extends Activity {
         {
             e.printStackTrace();
         }
+        // TODO 判断权限
 
         for (int i = 0; i < permissions.length; i++) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -83,7 +84,21 @@ public class LaunchActivity extends Activity {
             ActivityCompat.requestPermissions(this, permissions, mRequestCode);
         } else {
             //说明权限都已经通过，可以做你想做的事情去
-            updatehttp();
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        Thread.sleep(2000);//休眠3秒
+                        updatehttp();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    /**
+                     * 要执行的操作
+                     */
+                }
+            }.start();
             Log.i("tag", "123");
         }
 
@@ -108,7 +123,21 @@ public class LaunchActivity extends Activity {
                 showPermissionDialog();//跳转到系统设置权限页面，或者直接关闭页面，不让他继续访问
             } else {
                 //全部权限通过，可以进行下一步操作。。。
-                updatehttp();
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            Thread.sleep(2000);//休眠3秒
+                            updatehttp();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        /**
+                         * 要执行的操作
+                         */
+                    }
+                }.start();
                 Log.i("tag", "123");
             }
         }
@@ -136,7 +165,21 @@ public class LaunchActivity extends Activity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //关闭页面或者做其他操作
-                            updatehttp();
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    super.run();
+                                    try {
+                                        Thread.sleep(2000);//休眠3秒
+                                        updatehttp();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    /**
+                                     * 要执行的操作
+                                     */
+                                }
+                            }.start();
                             cancelPermissionDialog();
 
                         }
@@ -152,6 +195,7 @@ public class LaunchActivity extends Activity {
         mPermissionDialog.cancel();
     }
 
+    //TODO 传递更新连接
     public void  updatehttp() {
             new Thread(new Runnable() {
                 @Override
@@ -218,6 +262,7 @@ public class LaunchActivity extends Activity {
             }).start();
         }
 
+    //TODO 判断的网络连接
     @Override
     protected void onResume() {
         super.onResume();
@@ -227,6 +272,8 @@ public class LaunchActivity extends Activity {
             Toast.makeText(getApplicationContext(),"网络未连接",Toast.LENGTH_SHORT).show();
         }
     }
+
+    // TODO  重启跳转到登录页
     @Override
     protected void onStart() {
         super.onStart();
@@ -234,7 +281,21 @@ public class LaunchActivity extends Activity {
         if (start == false){
 
         }else {
-            updatehttp();
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        Thread.sleep(2000);//休眠3秒
+                        updatehttp();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    /**
+                     * 要执行的操作
+                     */
+                }
+            }.start();
         }
     }
 }

@@ -45,6 +45,7 @@ public class VlcVideoActivity extends Activity implements SurfaceHolder.Callback
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_video_vlc);
 
+		//TODO  获取视频播放的url
 		Intent intent = getIntent();
 		String url=intent.getStringExtra("Url");
 
@@ -73,6 +74,7 @@ public class VlcVideoActivity extends Activity implements SurfaceHolder.Callback
 		mMediaPlayer.playMRL(url);
 	}
 
+	// TODO 视频暂停
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -82,6 +84,8 @@ public class VlcVideoActivity extends Activity implements SurfaceHolder.Callback
 			mSurfaceView.setKeepScreenOn(false);
 		}
 	}
+
+	// TODO 界面关闭
 
 	@Override
 	protected void onDestroy() {
@@ -142,7 +146,6 @@ public class VlcVideoActivity extends Activity implements SurfaceHolder.Callback
 	private static final int HANDLER_BUFFER_START = 1;
 	private static final int HANDLER_BUFFER_END = 2;
 	private static final int HANDLER_SURFACE_SIZE = 3;
-
 	private static final int SURFACE_BEST_FIT = 0;
 	private static final int SURFACE_FIT_HORIZONTAL = 1;
 	private static final int SURFACE_FIT_VERTICAL = 2;

@@ -1,30 +1,29 @@
 package com.nmbb.vlc.Util;
 
-import com.nmbb.vlc.modle.UpdateData;
-import com.nmbb.vlc.modle.UpdeateStatusData;
-import com.google.gson.Gson;
+        import com.nmbb.vlc.modle.UpdateData;
+        import com.nmbb.vlc.modle.UpdeateStatusData;
+        import com.google.gson.Gson;
 
-import java.io.IOException;
+        import java.io.IOException;
 
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+        import okhttp3.FormBody;
+        import okhttp3.MediaType;
+        import okhttp3.OkHttpClient;
+        import okhttp3.Request;
+        import okhttp3.RequestBody;
+        import okhttp3.Response;
 
 /**
  * Created by moonshine on 2018/2/3.
  */
 
 public class UpdateHttp {
-   String status=null;
-   String Updateurl=null;
+    String status=null;
+    String Updateurl=null;
     UpdeateStatusData updeateStatusData;
     public String updatePostHttp() {
         String path = "http://119.23.219.22:80/element-admin/version/an-check";
-//        String path = "http://192.168.43.65:8090/element-admin/version/an-check";
-        String version = "1545104858197";
+        String version = "1553169617860";
         UpdateData updateData = new UpdateData();
         updateData.setVersion(version);
         updateData.setType("APP05");
@@ -51,6 +50,6 @@ public class UpdateHttp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       return Updateurl;
+        return Updateurl;
     }
 }

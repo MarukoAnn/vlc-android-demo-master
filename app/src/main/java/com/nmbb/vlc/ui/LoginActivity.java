@@ -9,7 +9,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -57,12 +57,15 @@ public class LoginActivity extends Activity {
     EditText passwordEt;
     Button loginBtn;
     String path = "http://119.23.219.22:80/element-admin/user/login";
+//    String path = "http://106.13.108.160:8080/element-admin/user/login";
     DataDBHepler dbHepler;
     String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //TODO 状态栏颜色
+
         UltimateBar.newColorBuilder()
                 .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
                 .statusDepth(50)                // 状态栏颜色深度
@@ -70,6 +73,22 @@ public class LoginActivity extends Activity {
                 .apply();
         ViewLayout();
         init();
+
+        // TODO  数据库语柄初始化
+        usernameEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                usernameEt.setCursorVisible(true);
+//                Log.i(TAG, "onClick: 点击");
+            }
+        });
+        passwordEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                passwordEt.setCursorVisible(true);
+//                Log.i(TAG, "onClick: 点击");
+            }
+        });
         dbHepler = new DataDBHepler(getBaseContext());
         try {
             if (dbHepler.isIdoruserpass()) {
@@ -77,20 +96,11 @@ public class LoginActivity extends Activity {
                 final UserpassData data1 = new UserpassData(DataList1.get(0).getId(), DataList1.get(0).getUser(), DataList1.get(0).getPassword());
                 String userName = data1.getUser();
                 String passWord = data1.getPassword();
+                // TODO 先查询是否已经拥有用户名密码
                 usernameEt.setText(userName);
                 passwordEt.setText(passWord);
-                usernameEt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        usernameEt.setCursorVisible(true);
-                    }
-                });
-                passwordEt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        passwordEt.setCursorVisible(true);
-                    }
-                });
+                // TODO 点击时获取焦点
+
             }
             else {
                 Log.i(TAG,"没有用户名");
@@ -104,6 +114,7 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO  获取网络连接
                 ConnectivityManager connectivityManager =(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                 if (networkInfo == null || !networkInfo.isAvailable()){
@@ -115,6 +126,7 @@ public class LoginActivity extends Activity {
                     public void run() {
                         Looper.prepare();
                         try {
+                            // TODO 判断用户名密码是否为空
                             if(TextUtils.isEmpty(usernameEt.getText().toString().trim())||TextUtils.isEmpty(passwordEt.getText().toString().trim()))
                             {
                                 Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
@@ -159,13 +171,14 @@ public class LoginActivity extends Activity {
             }
         });
     }
-    //控件初始化
+    //TODO 控件初始化
     public void ViewLayout() {
         loginBtn = findViewById(R.id.login_btn);
         usernameEt = findViewById(R.id.login_user);
         passwordEt = findViewById(R.id.login_pass);
     }
 
+    //TODO 判断是否有更新
     public void init() {
         Intent intent = getIntent();
         updateApkUrl = intent.getStringExtra("url");
@@ -183,6 +196,7 @@ public class LoginActivity extends Activity {
         }
 
     }
+    // TODO  提示更新弹窗
     public void showDialog() {
         downloadUtils =   new DownloadUtil(LoginActivity.this);
         final UpdateDialog Dialog = new UpdateDialog(LoginActivity.this);
@@ -204,6 +218,7 @@ public class LoginActivity extends Activity {
         Dialog.show();
     }
 
+    // TODO  登录请求
     public String GetPostLogin(String uname, String upsd,String path) {
         //okhttp Post请求传输Json数据
         OkHttpClient client = new OkHttpClient();
@@ -229,6 +244,7 @@ public class LoginActivity extends Activity {
             ReturnStatusData resultStatusData= gson.fromJson(result,ReturnStatusData.class);
             String resultSid = resultStatusData.getSid();
             String resultSysInfo = resultStatusData.getSystemInfo();
+            // TODO 解析数据
             List<SysInfoData> sysInfoData =gson.fromJson(resultSysInfo,new TypeToken<List<SysInfoData>>(){}.getType());
             Log.i(ContentValues.TAG,"SID为"+resultSid);
             Log.i(ContentValues.TAG,"SysId为"+resultSysInfo);

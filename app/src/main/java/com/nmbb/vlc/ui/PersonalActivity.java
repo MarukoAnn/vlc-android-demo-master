@@ -71,6 +71,7 @@ public class PersonalActivity extends Activity {
                 .build(this)
                 .apply();
         init();
+        // TODO 获取图片路径
         String path=mSavePamasInfo.getInfo(PersonalActivity.this,"imgPath","file");
         if (path.equals("")){
             mCircleImageView.setImageResource(R.drawable.ic_header);
@@ -89,7 +90,7 @@ public class PersonalActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("index", "1");
+                intent.putExtra("index", "3");
                 intent.setClass(PersonalActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -116,6 +117,7 @@ public class PersonalActivity extends Activity {
         return Msid;
     }
 
+    // TODO  异步请求获取数据
     private class AnotherTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPostExecute(String result) {
@@ -142,6 +144,7 @@ public class PersonalActivity extends Activity {
 //            String  SidStatus = null;
             String result = null;
             String queryUrl = "http://119.23.219.22:80/element-admin/user/query-self";
+//            String queryUrl = "http://106.13.108.160:8080/element-admin/user/query-self";
             OkHttpClient client = new OkHttpClient();
             Gson gson = new Gson();
 
@@ -180,6 +183,7 @@ public class PersonalActivity extends Activity {
     }
 
 
+    //TODO  回调选择图片返回的结果
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<LocalMedia> images;
@@ -191,12 +195,8 @@ public class PersonalActivity extends Activity {
                     images = PictureSelector.obtainMultipleResult(data);
 
                     LocalMedia media = images.get(0);
-//                    path = media.getCutPath();
                     path = media.getPath();
-//                    if (media.isCut() && !media.isCompressed()) {
-//                        // 裁剪过
-//                        path = media.getCutPath();
-//                    }
+
                     Log.i("tag","路径："+path);
                     mSavePamasInfo.saveInfo(PersonalActivity.this,"imgPath",path,"file");
                     showImage(path);
@@ -210,6 +210,7 @@ public class PersonalActivity extends Activity {
 
     }
 
+    // TODO 更改头像  pop是选择图片或者拍照的弹窗
     private void showPop() {
 
         View bottomView = View.inflate(PersonalActivity.this, R.layout.layout_bottom_dialog, null);
@@ -267,11 +268,20 @@ public class PersonalActivity extends Activity {
         mCancel.setOnClickListener(clickListener);
     }
 
+    // TODO 关闭图形选择
     public void closePopupWindow() {
         if (pop != null && pop.isShowing()) {
             pop.dismiss();
             pop = null;
         }
     }
+    // TODO  设置Activity的切换方式
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.down_in, R.anim.down_out);
+    }
+
 }
+
 

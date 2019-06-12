@@ -72,6 +72,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int whirt = 0xFFFFFFFF;
     String url= "http://119.23.219.22:80/element/SelectCameraGroupAll";
     String path = "http://119.23.219.22:80/element-admin/user/sid-update";
+//    String path = "http://106.13.108.160:8080/element-admin/user/sid-update";
+//    String url= "http://106.13.108.160:8080/element/SelectCameraGroupAll";
+
+
     String[] pasname;
     String[] pasid;
     // 定义FragmentManager对象管理器
@@ -221,9 +225,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         hideFragments(fragmentTransaction);
         switch (index) {
             case 0:
+                // TODO 选择后字体颜色改变，图标改变
                 firstImage.setImageResource(R.drawable.ic_yunxing1);
                 firstText.setTextColor(whirt);
                 firstLayout.setBackgroundColor(Color.parseColor("#0a1720"));
+                // TODO 状态栏颜色透明度改变
                 UltimateBar.newColorBuilder()
                         .statusColor(Color.parseColor("#253847"))       // 状态栏颜色
                         .statusDepth(50)                // 状态栏颜色深度
@@ -345,6 +351,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return super.onKeyDown(keyCode, event);
     }
 
+    // TODO  请求获取数据
     public String posthttpresult(String path) {
 
         OkHttpClient client = new OkHttpClient();
@@ -382,6 +389,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    // 传递数据集给Frangment  （视频组）
     public void  setPasname(){
         pasname = new String[listData.size()];
         pasid = new String[listData.size()];

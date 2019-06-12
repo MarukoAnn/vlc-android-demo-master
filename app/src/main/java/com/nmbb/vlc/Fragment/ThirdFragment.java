@@ -77,10 +77,7 @@ public class ThirdFragment extends Fragment {
     DataDBHepler dbHepler;
     Handler handler;
     String[] list;
-
-    public ThirdFragment() {
-    }
-
+    //TODO 接收主界面传输过来的视频分组值
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -101,6 +98,7 @@ public class ThirdFragment extends Fragment {
         return view;
     }
 
+    //TODO 设置视频下拉分组
     public void init() {
         final Spinner sp;
         sp = view.findViewById(R.id.TD_Spinner);
@@ -166,6 +164,7 @@ public class ThirdFragment extends Fragment {
 
     }
 
+    // 解析视频连接重新组装
     private void setDatas() {
         Log.i("Fragment","listurl:"+listurl.size());
         prourl = new String[listurl.size()];
@@ -187,6 +186,7 @@ public class ThirdFragment extends Fragment {
         }
     }
 
+    // TODO 设置视频图片
 
     private void setimage(int indexq) {
         if (indexq == 0) {
@@ -215,6 +215,7 @@ public class ThirdFragment extends Fragment {
         }
 
     };
+    //TODO   更新界面
     public void grid() {
         setDatas();
         GridView gv = view.findViewById(R.id.gridView1);
@@ -222,7 +223,9 @@ public class ThirdFragment extends Fragment {
        gv.setAdapter(myGridViewAdapter);
         //注册监听事件
 
-    } public class MyGridViewAdapter extends BaseAdapter {
+    }
+    //TODO   设置适配器
+    public class MyGridViewAdapter extends BaseAdapter {
 
         private List<ProductListBean> listData;
         private LayoutInflater inflater;
@@ -276,6 +279,7 @@ public class ThirdFragment extends Fragment {
             holder.imgUrl.setImageResource(bean.getImgUrl());
 
             //添加item监听
+            //  TODO 点击跳转播放视频
             convertView.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("AuthLeak")
                 @Override
@@ -296,10 +300,11 @@ public class ThirdFragment extends Fragment {
             private ImageView imgUrl;
         }
     }
-
+       //TODO 获取视频链接
         protected String httpCameraAll() {
             //耗时的操作
             String path = "http://119.23.219.22:80/element/QueryCameraAll";
+//            String path = "http://106.13.108.160:8080/element/QueryCameraAll";
             Gson gson = new Gson();
             String resultStatus =null;
             OkHttpClient client = new OkHttpClient();
